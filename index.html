@@ -1,0 +1,472 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Raphaël Pascaud — Réseaux, Systèmes & Cybersécurité</title>
+  <meta name="description" content="Portfolio de Raphaël Pascaud, étudiant en BUT Réseaux et Télécommunications à l'IUT d'Annecy et apprenti administrateur systèmes & réseaux chez Renault Finance SA.">
+  <meta name="theme-color" content="#02060c">
+  <meta property="og:title" content="Raphaël Pascaud — Réseaux, Systèmes & Cybersécurité">
+  <meta property="og:description" content="Administration réseaux, systèmes Linux/Windows, cybersécurité et automatisation.">
+  <meta property="og:type" content="website">
+  <script>(function(d){var c=d.documentElement.classList,s;c.add('js');try{s=sessionStorage.getItem('rp-boot-seen')==='1';}catch(e){}if(s||location.hash.length>1||navigator.webdriver||matchMedia('(prefers-reduced-motion: reduce)').matches)c.add('boot-skip');})(document);</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='14' fill='%2302060c'/%3E%3Cpath d='M15 46V18h14c8 0 13 4 13 11 0 4-2 7-6 9l8 8H33l-6-7h-3v7H15zm9-15h5c3 0 5-1 5-3s-2-3-5-3h-5v6z' fill='%2300f3ff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" integrity="sha384-CI3ELBVUz9XQO+97x6nwMDPosPR5XvsxW2ua7N1Xeygeh1IxtgqtCkGfQY9WWdHu" crossorigin="anonymous" referrerpolicy="no-referrer" defer></script>
+  <script src="data.js" defer></script>
+  <script src="script.js" defer></script>
+</head>
+<body class="is-booting">
+
+<a class="skip-link" href="#main">Aller au contenu</a>
+
+<!-- ===== Overlays globaux ===== -->
+<div class="fx-scanlines" aria-hidden="true"></div>
+<div class="fx-noise" aria-hidden="true"></div>
+<div class="ambient-orb ambient-orb-one" aria-hidden="true"></div>
+<div class="ambient-orb ambient-orb-two" aria-hidden="true"></div>
+<div class="scroll-progress" id="scrollProgress" aria-hidden="true"></div>
+<div class="cursor-dot" id="cursorDot" aria-hidden="true"></div>
+<div class="cursor-ring" id="cursorRing" aria-hidden="true"><span></span></div>
+<canvas class="matrix-canvas" id="matrixCanvas" aria-hidden="true"></canvas>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<!-- ===== Séquence de boot ===== -->
+<div class="boot" id="boot" aria-hidden="true">
+  <div class="boot-inner">
+    <div class="boot-head"><span class="boot-logo">R<i>/</i>P</span><span>SECURE BOOT · rp@portfolio</span></div>
+    <div class="boot-log" id="bootLog"></div>
+    <div class="boot-bar"><i id="bootBar"></i></div>
+    <div class="boot-foot"><span id="bootPercent">000%</span><span>[ CLIC OU TOUCHE POUR PASSER ]</span></div>
+  </div>
+</div>
+
+<!-- ===== Rails HUD (desktop) ===== -->
+<aside class="hud-rail hud-rail--left" aria-hidden="true">
+  <span class="hud-rail-line"></span>
+  <span class="hud-rail-text" id="hudSection">00 / BOOT</span>
+</aside>
+<aside class="hud-rail hud-rail--right" aria-hidden="true">
+  <span class="hud-rail-text" id="hudClock">00:00:00</span>
+  <span class="hud-rail-line"></span>
+  <span class="hud-rail-text" id="hudCoords">X 0000 · Y 0000</span>
+</aside>
+
+<!-- ===== Navigation ===== -->
+<header class="navbar" id="navbar">
+  <a href="#home" class="logo" aria-label="Raphaël Pascaud — Accueil"><span>R</span><i>/</i><span>P</span></a>
+  <div class="nav-status" aria-hidden="true"><span></span> NODE ONLINE · LAT 45.7°N</div>
+  <nav class="nav-menu" id="navLinks" aria-label="Navigation principale">
+    <a href="#home" class="nav-link active"><b>00</b>Accueil</a>
+    <a href="#about" class="nav-link"><b>01</b>Profil</a>
+    <a href="#skills" class="nav-link"><b>02</b>Compétences</a>
+    <a href="#experience" class="nav-link"><b>03</b>Parcours</a>
+    <a href="#projects" class="nav-link"><b>04</b>Projets</a>
+    <a href="#contact" class="nav-link"><b>05</b>Contact</a>
+  </nav>
+  <button class="term-toggle" id="termToggle" type="button" aria-haspopup="dialog" aria-controls="terminal" title="Ouvrir le terminal (touche ` ou Ctrl+K)">
+    <span aria-hidden="true">&gt;_</span><em>Terminal</em>
+  </button>
+  <button class="burger" id="burger" type="button" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="navLinks">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<main id="main">
+
+  <!-- ===== 00 HERO ===== -->
+  <section id="home" class="hero" data-hud="00 / HOME">
+    <div class="hero-3d" id="hero3d" aria-hidden="true"></div>
+    <canvas class="hero-fallback" id="heroFallback" aria-hidden="true"></canvas>
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-vignette" aria-hidden="true"></div>
+
+    <div class="hero-content">
+      <div class="hero-badge" data-reveal><span class="pulse"></span> En alternance · Renault Finance SA — Lausanne</div>
+      <p class="hero-kicker" data-reveal data-reveal-delay="80">Portfolio / 2026 — Network &amp; Security Operator</p>
+      <h1 class="hero-title" data-reveal data-reveal-delay="140">
+        <span class="glitch" data-text="Raphaël">Raphaël</span>
+        <span class="glitch title-outline" data-text="Pascaud">Pascaud</span>
+      </h1>
+      <p class="hero-subtitle" data-reveal data-reveal-delay="220">
+        <span class="prompt" aria-hidden="true">&gt;&gt;</span>
+        <span class="typed" id="typedRole">Administration réseaux</span><span class="caret" aria-hidden="true"></span>
+      </p>
+      <p class="hero-desc" data-reveal data-reveal-delay="280">Étudiant en BUT Réseaux et Télécommunications à l'IUT d'Annecy et apprenti chez Renault Finance SA, je conçois, administre et sécurise des infrastructures fiables, automatisées et documentées.</p>
+      <div class="hero-actions" data-reveal data-reveal-delay="340">
+        <a href="#projects" class="btn btn-primary magnetic"><span>Explorer mes projets</span><b aria-hidden="true">↘</b></a>
+        <a href="cv-raphael-pascaud.pdf" download class="btn btn-secondary magnetic"><span>Télécharger le CV</span><b aria-hidden="true">↓</b></a>
+        <button type="button" class="btn btn-ghost magnetic" data-action="terminal"><span>Ouvrir le terminal</span><b aria-hidden="true">&gt;_</b></button>
+      </div>
+      <dl class="hero-stats" data-reveal data-reveal-delay="400">
+        <div><dt>Projets SAE</dt><dd><strong class="counter" data-value="4">4</strong></dd></div>
+        <div><dt>Points Root-Me</dt><dd><strong class="counter" data-value="725">725</strong></dd></div>
+        <div><dt>Certifications</dt><dd><strong class="counter" data-value="4">4</strong></dd></div>
+      </dl>
+    </div>
+
+    <aside class="hero-console hud-panel" data-reveal data-reveal-delay="260" aria-label="Console système">
+      <div class="console-bar"><span class="dots" aria-hidden="true"><i></i><i></i><i></i></span><b>rp@portfolio:~</b><em>LIVE</em></div>
+      <div class="console-body">
+        <div class="radar" aria-hidden="true"><span></span><i></i><b></b><em></em></div>
+        <div class="console-lines">
+          <p><span>$</span> whoami</p><strong>apprenti_sysadmin@renault-finance</strong>
+          <p><span>$</span> scan --skills</p><strong>cisco · linux · windows-ad · security · python</strong>
+          <p><span>$</span> status</p><strong class="console-success">ready_to_connect</strong>
+        </div>
+        <div class="console-status" aria-hidden="true"><span>UPTIME 99.9%</span><span>LATENCY 08ms</span><span>TLS SECURE</span></div>
+      </div>
+    </aside>
+
+    <a href="#about" class="scroll-cue" aria-label="Défiler vers le profil"><span>SCROLL TO DECRYPT</span><i></i></a>
+  </section>
+
+  <div class="ticker" aria-hidden="true">
+    <div class="ticker-track">
+      <span>NETWORK ENGINEERING</span><i>✦</i><span>CYBERSECURITY</span><i>✦</i><span>SYSTEM ADMIN</span><i>✦</i><span>AUTOMATION</span><i>✦</i><span>CISCO · LINUX · WINDOWS AD</span><i>✦</i>
+      <span>NETWORK ENGINEERING</span><i>✦</i><span>CYBERSECURITY</span><i>✦</i><span>SYSTEM ADMIN</span><i>✦</i><span>AUTOMATION</span><i>✦</i><span>CISCO · LINUX · WINDOWS AD</span><i>✦</i>
+    </div>
+  </div>
+
+  <!-- ===== 01 PROFIL ===== -->
+  <section id="about" class="section" data-hud="01 / IDENTITY">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">01 / IDENTITY</span>
+      <h2 class="section-title" data-scramble>Profil</h2>
+      <p>SYS_PROFILE — qui je suis, ce que je sais faire, comment me joindre.</p>
+    </div>
+    <div class="about-grid">
+      <article class="about-card about-card--main hud-panel" data-reveal>
+        <span class="card-tag">SYS_PROFILE</span>
+        <h3>Profil</h3>
+        <p>Étudiant en 2<sup>e</sup> année de BUT Réseaux et Télécommunications à l'IUT d'Annecy (Université Savoie Mont-Blanc), aujourd'hui en alternance chez <strong>Renault Finance SA</strong> à Lausanne. Passionné par l'administration réseau, les systèmes et la cybersécurité.</p>
+        <p>Je configure des équipements Cisco (TCP/IP, VLAN, STP, OSPF, trunking), j'administre Linux (Debian, Arch, Kali) et Windows (Active Directory, GPO), je déploie Docker/LDAP et MariaDB/MySQL, je virtualise (VMware, VirtualBox, GNS3), j'analyse le trafic avec Wireshark et j'automatise en Python et PowerShell.</p>
+        <dl class="info-grid">
+          <div><dt>Statut</dt><dd>Apprenti — Renault Finance SA</dd></div>
+          <div><dt>Formation</dt><dd>BUT R&amp;T — USMB, Annecy</dd></div>
+          <div><dt>Langues</dt><dd>Anglais (interm.) · Italien (basique)</dd></div>
+        </dl>
+      </article>
+      <article class="about-card hud-panel" data-reveal data-reveal-delay="120">
+        <span class="card-tag">CERTS</span>
+        <h3>Certifications</h3>
+        <ul class="cert-list">
+          <li><span>Cisco CCNA1</span><em>Acquis</em></li>
+          <li><span>Cisco CCNA2</span><em>Acquis</em></li>
+          <li><span>Stormshield</span><em>Acquis</em></li>
+          <li><span>Baccalauréat</span><em>Mention AB</em></li>
+          <li><span>TOEIC</span><em>Acquis</em></li>
+        </ul>
+      </article>
+      <article class="about-card hud-panel" data-reveal data-reveal-delay="200">
+        <span class="card-tag">UPLINK</span>
+        <h3>Contact</h3>
+        <dl class="contact-details">
+          <dt>Email</dt><dd><a href="mailto:raphaelpascaud.sco@gmail.com">raphaelpascaud.sco@gmail.com</a></dd>
+          <dt>Lieu</dt><dd>Marthod, 73400</dd>
+          <dt>Réseaux</dt><dd><a href="https://github.com/7ShIkI3" target="_blank" rel="noopener noreferrer">GitHub</a> · <a href="https://www.linkedin.com/in/raphael-pascaud-36569a305" target="_blank" rel="noopener noreferrer">LinkedIn</a></dd>
+        </dl>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 02 COMPÉTENCES ===== -->
+  <section id="skills" class="section" data-hud="02 / CAPABILITIES">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">02 / CAPABILITIES</span>
+      <h2 class="section-title" data-scramble>Compétences</h2>
+      <p>Un socle complet pour concevoir, administrer et sécuriser une infrastructure. Survolez la carte réseau.</p>
+    </div>
+
+    <div class="command-center hud-panel" data-reveal>
+      <div class="topology-wrap" id="topologyWrap">
+        <svg id="topology" class="topology" viewBox="0 0 800 560" role="group" aria-label="Carte réseau des compétences : Réseaux, Systèmes, Sécurité et Code reliés au nœud central RP"></svg>
+        <div class="topology-legend" role="group" aria-label="Mettre en évidence un domaine">
+          <button type="button" data-hub="reseaux">Réseaux</button>
+          <button type="button" data-hub="systemes">Systèmes</button>
+          <button type="button" data-hub="securite">Sécurité</button>
+          <button type="button" data-hub="code">Code</button>
+        </div>
+      </div>
+      <div class="command-side">
+        <div class="command-radar" aria-hidden="true"><i></i><i></i><i></i><span></span><b>CORE<br>SKILLS</b></div>
+        <div class="command-data" aria-hidden="true">
+          <div><span>NETWORK</span><b>92%</b><i style="--level:92%"></i></div>
+          <div><span>SYSTEMS</span><b>86%</b><i style="--level:86%"></i></div>
+          <div><span>SECURITY</span><b>81%</b><i style="--level:81%"></i></div>
+          <div><span>AUTOMATION</span><b>74%</b><i style="--level:74%"></i></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="skills-grid">
+      <article class="skill-card hud-panel" data-reveal>
+        <div class="skill-head"><span class="skill-icon" aria-hidden="true">≈</span><h3>Réseaux</h3><em>01</em></div>
+        <ul>
+          <li>VLAN, STP, trunking</li>
+          <li>Routage OSPF, RIP</li>
+          <li>Services DHCP &amp; DNS</li>
+          <li>Interconnexion &amp; matériel réseau</li>
+          <li>Analyse de trafic avec Wireshark</li>
+        </ul>
+      </article>
+      <article class="skill-card hud-panel" data-reveal data-reveal-delay="80">
+        <div class="skill-head"><span class="skill-icon" aria-hidden="true">◇</span><h3>Systèmes</h3><em>02</em></div>
+        <ul>
+          <li>Administration Linux (Debian, Arch, Kali)</li>
+          <li>Windows, Active Directory, GPO</li>
+          <li>Docker, LDAP, MariaDB/MySQL</li>
+          <li>Virtualisation VMware / VirtualBox / GNS3</li>
+        </ul>
+      </article>
+      <article class="skill-card hud-panel" data-reveal data-reveal-delay="160">
+        <div class="skill-head"><span class="skill-icon" aria-hidden="true">⛨</span><h3>Sécurité</h3><em>03</em></div>
+        <ul>
+          <li>Pare-feu &amp; règles d'accès</li>
+          <li>Gestion d'accès sécurisé</li>
+          <li>Pentest &amp; audit (Kali, Exegol, BurpSuite)</li>
+          <li>Root-Me : 725 points</li>
+        </ul>
+      </article>
+      <article class="skill-card hud-panel" data-reveal data-reveal-delay="240">
+        <div class="skill-head"><span class="skill-icon" aria-hidden="true">&lt;/&gt;</span><h3>Programmation</h3><em>04</em></div>
+        <ul>
+          <li>Python, Bash, CMD, PowerShell</li>
+          <li>PHP &amp; HTML, SQL</li>
+          <li>Automatisation de tâches</li>
+          <li>Suivi de projets en équipe</li>
+        </ul>
+      </article>
+    </div>
+  </section>
+
+  <!-- ===== 03 PARCOURS ===== -->
+  <section id="experience" class="section" data-hud="03 / JOURNEY">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">03 / JOURNEY</span>
+      <h2 class="section-title" data-scramble>Parcours</h2>
+      <p>Expériences et formation. Cliquez sur une entrée pour extraire le dossier complet.</p>
+    </div>
+    <ol class="timeline" id="timeline">
+      <li class="timeline-item" data-reveal>
+        <button type="button" class="timeline-card hud-panel" data-open="renault" aria-haspopup="dialog">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <span class="timeline-date">Sept. 2026 — aujourd'hui</span>
+          <span class="timeline-main"><strong>Apprenti — Renault Finance SA</strong><span>Alternance en administration des systèmes et réseaux.</span></span>
+          <span class="timeline-loc">Lausanne</span>
+          <span class="timeline-open" aria-hidden="true">OPEN ↗</span>
+        </button>
+      </li>
+      <li class="timeline-item" data-reveal>
+        <button type="button" class="timeline-card hud-panel" data-open="ugitech" aria-haspopup="dialog">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <span class="timeline-date">Avril — Juin 2026</span>
+          <span class="timeline-main"><strong>Stagiaire — UGITECH</strong><span>Projet d'administration et aide à la refonte réseau.</span></span>
+          <span class="timeline-loc">Ugine</span>
+          <span class="timeline-open" aria-hidden="true">OPEN ↗</span>
+        </button>
+      </li>
+      <li class="timeline-item" data-reveal>
+        <button type="button" class="timeline-card hud-panel" data-open="usmb" aria-haspopup="dialog">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <span class="timeline-date">Sept. 2024 — 2027</span>
+          <span class="timeline-main"><strong>BUT Réseaux et Télécommunications</strong><span>IUT d'Annecy — réseaux, systèmes et cybersécurité.</span></span>
+          <span class="timeline-loc">Annecy</span>
+          <span class="timeline-open" aria-hidden="true">OPEN ↗</span>
+        </button>
+      </li>
+      <li class="timeline-item" data-reveal>
+        <button type="button" class="timeline-card hud-panel" data-open="creditmutuel" aria-haspopup="dialog">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <span class="timeline-date">Août 2024</span>
+          <span class="timeline-main"><strong>Stage d'été — Crédit Mutuel Ugine</strong><span>Accueil et découverte du milieu bancaire.</span></span>
+          <span class="timeline-loc">Ugine</span>
+          <span class="timeline-open" aria-hidden="true">OPEN ↗</span>
+        </button>
+      </li>
+      <li class="timeline-item" data-reveal>
+        <button type="button" class="timeline-card hud-panel" data-open="lycee" aria-haspopup="dialog">
+          <span class="timeline-marker" aria-hidden="true"></span>
+          <span class="timeline-date">2021 — 2024</span>
+          <span class="timeline-main"><strong>Baccalauréat — Mathématiques &amp; NSI</strong><span>Lycée René Perrin — mention Assez Bien.</span></span>
+          <span class="timeline-loc">Ugine</span>
+          <span class="timeline-open" aria-hidden="true">OPEN ↗</span>
+        </button>
+      </li>
+    </ol>
+  </section>
+
+  <!-- ===== 04 PROJETS ===== -->
+  <section id="projects" class="section" data-hud="04 / SELECTED WORK">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">04 / SELECTED WORK</span>
+      <h2 class="section-title" data-scramble>Projets</h2>
+      <p>Quatre projets SAE concrets. Survolez, explorez, puis ouvrez le dossier technique.</p>
+    </div>
+    <div class="projects-toolbar" aria-hidden="true"><span>INDEX / 04</span><i></i><span>ALL SYSTEMS NOMINAL</span></div>
+    <div class="projects-grid">
+      <article class="project-card" data-tilt data-reveal>
+        <div class="project-glare" aria-hidden="true"></div>
+        <div class="project-top"><span class="project-label">SAE203 — Web</span><span class="project-index">01</span></div>
+        <div class="project-visual" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="project-icon"><rect x="5" y="7" width="30" height="24" rx="2"/><line x1="5" y1="13" x2="35" y2="13"/><line x1="10" y1="19" x2="24" y2="19"/><line x1="10" y1="24" x2="20" y2="24"/><line x1="15" y1="35" x2="25" y2="35"/></svg>
+        </div>
+        <h3>Application web de suivi de colis</h3>
+        <p>Base de données relationnelle, interface web PHP/HTML et exploitation d'une API externe pour des données en temps réel.</p>
+        <div class="project-tech"><span>PHP</span><span>HTML</span><span>SQL</span><span>API</span></div>
+        <button type="button" class="project-details-btn" data-open="sae203" aria-haspopup="dialog">Ouvrir le dossier <b aria-hidden="true">→</b></button>
+      </article>
+      <article class="project-card" data-tilt data-reveal data-reveal-delay="100">
+        <div class="project-glare" aria-hidden="true"></div>
+        <div class="project-top"><span class="project-label">SAE204 — Systèmes</span><span class="project-index">02</span></div>
+        <div class="project-visual" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="project-icon"><rect x="8" y="6" width="24" height="8" rx="1.5"/><rect x="8" y="16" width="24" height="8" rx="1.5"/><rect x="8" y="26" width="24" height="8" rx="1.5"/><circle cx="13" cy="10" r="1"/><circle cx="13" cy="20" r="1"/><circle cx="13" cy="30" r="1"/></svg>
+        </div>
+        <h3>Administration systèmes Windows &amp; Linux</h3>
+        <p>Scripts PowerShell/Batch, profils itinérants, GPO Firefox et standardisation des postes via Active Directory.</p>
+        <div class="project-tech"><span>PowerShell</span><span>Active Directory</span><span>GPO</span><span>Linux</span></div>
+        <button type="button" class="project-details-btn" data-open="sae204" aria-haspopup="dialog">Ouvrir le dossier <b aria-hidden="true">→</b></button>
+      </article>
+      <article class="project-card" data-tilt data-reveal>
+        <div class="project-glare" aria-hidden="true"></div>
+        <div class="project-top"><span class="project-label">SAE302 — Réseaux</span><span class="project-index">03</span></div>
+        <div class="project-visual" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="project-icon"><circle cx="9" cy="10" r="3.5"/><circle cx="31" cy="10" r="3.5"/><circle cx="20" cy="31" r="3.5"/><line x1="12.5" y1="10" x2="27.5" y2="10"/><line x1="11" y1="13" x2="18" y2="28"/><line x1="29" y1="13" x2="22" y2="28"/></svg>
+        </div>
+        <h3>Applications communicantes</h3>
+        <p>Applications client/serveur avec authentification, sécurité des échanges et stockage des données.</p>
+        <div class="project-tech"><span>Sockets</span><span>Client/Serveur</span><span>Auth</span><span>Chiffrement</span></div>
+        <button type="button" class="project-details-btn" data-open="sae302" aria-haspopup="dialog">Ouvrir le dossier <b aria-hidden="true">→</b></button>
+      </article>
+      <article class="project-card" data-tilt data-reveal data-reveal-delay="100">
+        <div class="project-glare" aria-hidden="true"></div>
+        <div class="project-top"><span class="project-label">SAE304 — Sécurité</span><span class="project-index">04</span></div>
+        <div class="project-visual" aria-hidden="true">
+          <svg viewBox="0 0 40 40" class="project-icon"><path d="M20 5 L9 9.5 V19 C9 27 20 35 20 35 C20 35 31 27 31 19 V9.5 Z"/><circle cx="20" cy="18" r="3.5"/><line x1="20" y1="21.5" x2="20" y2="26"/></svg>
+        </div>
+        <h3>Pentesting &amp; sécurité réseau</h3>
+        <p>Audits de vulnérabilités, tests d'intrusion, diagnostic Wireshark et rédaction de rapports techniques.</p>
+        <div class="project-tech"><span>Kali</span><span>Exegol</span><span>BurpSuite</span><span>Wireshark</span></div>
+        <button type="button" class="project-details-btn" data-open="sae304" aria-haspopup="dialog">Ouvrir le dossier <b aria-hidden="true">→</b></button>
+      </article>
+    </div>
+    <p class="projects-hint"><span aria-hidden="true"></span> Astuce : tapez <kbd>open sae304</kbd> dans le terminal.</p>
+  </section>
+
+  <!-- ===== HORS LIGNE ===== -->
+  <section id="interests" class="section interests-section" data-hud="04.5 / OFFLINE MODE">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">OFFLINE MODE</span>
+      <h2 class="section-title" data-scramble>Hors ligne</h2>
+      <p>L'équilibre derrière l'écran.</p>
+    </div>
+    <ul class="interests-grid">
+      <li class="interest-item" data-reveal><span aria-hidden="true">01</span>Vélo</li>
+      <li class="interest-item" data-reveal data-reveal-delay="60"><span aria-hidden="true">02</span>Course à pied</li>
+      <li class="interest-item" data-reveal data-reveal-delay="120"><span aria-hidden="true">03</span>Ski — 10 ans de club</li>
+      <li class="interest-item" data-reveal data-reveal-delay="180"><span aria-hidden="true">04</span>Musique — 8 ans, dont 2 en groupe</li>
+      <li class="interest-item" data-reveal data-reveal-delay="240"><span aria-hidden="true">05</span>Anglais / Italien</li>
+    </ul>
+  </section>
+
+  <!-- ===== 05 CONTACT ===== -->
+  <section id="contact" class="section contact-section" data-hud="05 / CONNECTION REQUEST">
+    <div class="section-heading" data-reveal>
+      <span class="section-index">05 / CONNECTION REQUEST</span>
+      <h2 class="section-title" data-scramble>Établir la connexion</h2>
+      <p>Un projet, une opportunité ou une discussion technique ? Le canal est ouvert.</p>
+    </div>
+    <div class="contact-grid">
+      <div class="contact-info hud-panel" data-reveal>
+        <h3>Discutons</h3>
+        <p>Actuellement en alternance chez Renault Finance SA, je reste ouvert aux échanges autour de l'administration réseaux, des systèmes et de la cybersécurité.</p>
+        <div class="contact-methods">
+          <div class="method">
+            <span class="method-label">Email</span>
+            <button type="button" class="copy-email-btn" id="copyEmailBtn" aria-label="Copier l'adresse email raphaelpascaud.sco@gmail.com">
+              <span class="copy-text">raphaelpascaud.sco@gmail.com</span>
+              <span class="copy-status" aria-hidden="true">COPIER</span>
+            </button>
+          </div>
+          <div class="method">
+            <span class="method-label">Localisation</span>
+            <p>Marthod, 73400 · Lausanne</p>
+          </div>
+          <div class="method">
+            <span class="method-label">Réseaux</span>
+            <div class="social-links">
+              <a href="https://github.com/7ShIkI3" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 .5a11.5 11.5 0 0 0-3.64 22.41c.58.1.79-.25.79-.56v-2c-3.2.7-3.88-1.37-3.88-1.37-.52-1.33-1.28-1.69-1.28-1.69-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.19 1.77 1.19 1.03 1.77 2.7 1.26 3.36.96.1-.75.4-1.26.73-1.55-2.55-.29-5.24-1.28-5.24-5.69 0-1.26.45-2.28 1.19-3.09-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.17 1.18a11 11 0 0 1 5.77 0c2.2-1.49 3.17-1.18 3.17-1.18.63 1.59.23 2.76.11 3.05.74.81 1.19 1.83 1.19 3.09 0 4.42-2.7 5.39-5.26 5.68.41.36.78 1.06.78 2.14v3.17c0 .31.21.67.8.56A11.5 11.5 0 0 0 12 .5Z"/></svg>
+                <span>GitHub</span>
+              </a>
+              <a href="https://www.linkedin.com/in/raphael-pascaud-36569a305" target="_blank" rel="noopener noreferrer" class="social-btn">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20.45 20.45h-3.56v-5.57c0-1.33-.02-3.04-1.85-3.04-1.85 0-2.14 1.45-2.14 2.94v5.67H9.35V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.46v6.28ZM5.34 7.43a2.06 2.06 0 1 1 0-4.13 2.06 2.06 0 0 1 0 4.13ZM7.12 20.45H3.56V9h3.56v11.45ZM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0Z"/></svg>
+                <span>LinkedIn</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <form class="contact-form hud-panel" id="contactForm" data-reveal data-reveal-delay="120" novalidate>
+        <div class="form-head" aria-hidden="true"><span>NEW_PACKET.msg</span><span>ENCRYPTION: TLS</span></div>
+        <div class="form-group">
+          <label for="name">Nom</label>
+          <input type="text" id="name" name="name" autocomplete="name" required>
+        </div>
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" autocomplete="email" required>
+        </div>
+        <div class="form-group form-group--full">
+          <label for="subject">Sujet</label>
+          <input type="text" id="subject" name="subject" required>
+        </div>
+        <div class="form-group form-group--full">
+          <label for="message">Message</label>
+          <textarea id="message" name="message" rows="5" required></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary magnetic"><span>Préparer mon e-mail</span><b aria-hidden="true">↗</b></button>
+        <p class="form-note">Ce formulaire prépare un brouillon dans votre messagerie ; aucun envoi n'est effectué par le site.</p>
+        <p class="form-message" id="formMessage" role="status"></p>
+      </form>
+    </div>
+  </section>
+
+</main>
+
+<footer class="footer">
+  <p>&copy; 2026 Raphaël Pascaud</p>
+  <p class="footer-hint" aria-hidden="true">↑↑↓↓←→←→BA</p>
+  <a href="#home" class="back-to-top">↑ Haut de page</a>
+</footer>
+
+<!-- ===== Modale détails (projets & parcours) ===== -->
+<dialog id="detailDialog" class="detail-modal" aria-labelledby="detailTitle">
+  <div class="modal-content">
+    <button type="button" class="modal-close" id="detailClose" aria-label="Fermer">✕</button>
+    <div id="detailBody"></div>
+  </div>
+</dialog>
+
+<!-- ===== Terminal interactif ===== -->
+<dialog id="terminal" class="terminal" aria-label="Terminal interactif">
+  <div class="terminal-window">
+    <div class="terminal-bar">
+      <span class="dots" aria-hidden="true"><i></i><i></i><i></i></span>
+      <b>rp@portfolio: ~ — bash</b>
+      <button type="button" class="terminal-close" id="termClose" aria-label="Fermer le terminal">✕</button>
+    </div>
+    <div class="terminal-output" id="termOutput" role="log" aria-live="polite"></div>
+    <form class="terminal-form" id="termForm" autocomplete="off">
+      <label for="termInput"><span class="t-user">rp@portfolio</span>:<span class="t-path">~</span>$</label>
+      <input id="termInput" type="text" spellcheck="false" autocapitalize="off" autocomplete="off" aria-describedby="termHint">
+    </form>
+    <p class="terminal-hint" id="termHint">Tapez <kbd>help</kbd> · <kbd>Tab</kbd> complète · <kbd>↑</kbd>/<kbd>↓</kbd> historique · <kbd>Échap</kbd> ferme</p>
+  </div>
+</dialog>
+
+</body>
+</html>
