@@ -65,7 +65,7 @@ window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
   {k:"acc",t:"Des journalistes et des sociologues accusent le Siècle d’entretenir une « consanguinité » des élites et une pensée unique. Ses membres répondent qu’il s’agit seulement d’un lieu de conversation entre personnes d’opinions variées."},
   {k:"mythe",t:"Le Siècle n’est pas un gouvernement de l’ombre : aucune preuve n’indique que des décisions publiques y soient prises."}
  ],
- lire:["Emmanuel Ratouis, Le Siècle (enquêtes de presse).","Gilles Balbastre et Yannick Kergoat, Les Nouveaux Chiens de garde, documentaire, 2012.","Michel Pinçon et Monique Pinçon-Charlot, Le Président des riches, 2010."]
+ lire:["Gilles Balbastre et Yannick Kergoat, Les Nouveaux Chiens de garde, documentaire, 2012.","Michel Pinçon et Monique Pinçon-Charlot, Le Président des riches, 2010."]
 },
 
 "scroll-key":{
