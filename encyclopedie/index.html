@@ -1,0 +1,560 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Cartographie encyclopédique des sociétés initiatiques, des nouveaux mouvements religieux et des religions du monde : fiches, textes fondateurs, chronologies et relations.">
+<style>:root{color-scheme:light;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}body{margin:0}img{max-width:100%}[hidden]{display:none!important}</style>
+<title>Encyclopédie des organisations</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600&text=%E0%A5%90&display=swap">
+<style>
+/* Mise en page : fichier de bibliothèque. Bandeau de recherche fixe, index en fiches cotées, arborescence dépliable, fiche détaillée avec graphe de relations. */
+:root{
+  --paper:#f2f3ef; --card:#fbfbf8; --ink:#1c2228; --muted:#5b646c; --rule:#d3d7d1; --soft:#e6e8e2;
+  --accent:#27466f; --accent-soft:#dfe6ef;
+  --cS:#5e3a86; --cM:#8a5d00; --cR:#2c6649;
+  --v0:#6d757c; --v1:#9a7300; --v2:#b45309; --v3:#b3261e;
+  --display:"Young Serif", Georgia, "Times New Roman", serif;
+  --body:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#15191d; --card:#1c2126; --ink:#e7e9e4; --muted:#9aa3aa; --rule:#323941; --soft:#252b31;
+  --accent:#9db9e0; --accent-soft:#25344a;
+  --cS:#bb9be0; --cM:#e0b04d; --cR:#7fc7a0;
+  --v0:#8f979e; --v1:#d9b23f; --v2:#f08c3c; --v3:#f2706a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --paper:#15191d; --card:#1c2126; --ink:#e7e9e4; --muted:#9aa3aa; --rule:#323941; --soft:#252b31;
+  --accent:#9db9e0; --accent-soft:#25344a;
+  --cS:#bb9be0; --cM:#e0b04d; --cR:#7fc7a0;
+  --v0:#8f979e; --v1:#d9b23f; --v2:#f08c3c; --v3:#f2706a; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-size:15px;line-height:1.55}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--card)}
+a{color:var(--accent)}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.wrap{max-width:1180px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+header.top{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--card);border-bottom:1px solid var(--rule)}
+.top .wrap{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;padding-block:10px}
+.brand{display:flex;align-items:baseline;gap:10px;text-decoration:none;color:var(--ink)}
+.brand b{font-family:var(--display);font-weight:400;font-size:20px;letter-spacing:.01em}
+.brand span{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase}
+nav.tabs{display:flex;gap:4px;flex-wrap:wrap}
+nav.tabs a{font-size:13px;font-weight:600;text-decoration:none;color:var(--muted);padding:6px 10px;border-radius:6px}
+nav.tabs a[aria-current="page"]{color:var(--ink);background:var(--soft)}
+.search{flex:1 1 220px;display:flex;min-width:0}
+.search input{width:100%;font:inherit;font-size:14px;padding:8px 12px;border:1px solid var(--rule);border-radius:8px;background:var(--paper);color:var(--ink)}
+main{padding-block:24px 64px}
+h1,h2,h3{font-family:var(--display);font-weight:400;text-wrap:balance;line-height:1.2;margin:0}
+h1{font-size:clamp(26px,4vw,38px)}
+h2{font-size:22px}
+h3{font-size:17px}
+.lede{max-width:68ch;color:var(--muted);font-size:16px;margin:10px 0 0}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.cat-S{--c:var(--cS)} .cat-M{--c:var(--cM)} .cat-R{--c:var(--cR)}
+/* Accueil */
+.cats{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:16px;margin-top:24px}
+.cat{background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--c);border-radius:4px;padding:18px;display:flex;flex-direction:column;gap:10px;min-width:0}
+.cat .num{font-family:var(--mono);font-size:12px;color:var(--c)}
+.cat p{margin:0;color:var(--muted);font-size:14px}
+.fam-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column}
+.fam-list a{display:flex;justify-content:space-between;gap:10px;padding:6px 0;border-top:1px dashed var(--rule);text-decoration:none;color:var(--ink);font-size:14px}
+.fam-list a:hover{color:var(--accent)}
+.fam-list span{font-family:var(--mono);font-size:12px;color:var(--muted);font-variant-numeric:tabular-nums}
+.notes{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px 28px;margin-top:32px;padding-top:20px;border-top:1px solid var(--rule)}
+.notes p{margin:4px 0 0;font-size:14px;color:var(--muted)}
+.scale{display:flex;flex-direction:column;gap:6px;margin-top:6px}
+/* Pills */
+.pill{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;padding:2px 8px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;line-height:1.5}
+.pill.lv0{color:var(--v0)} .pill.lv1{color:var(--v1)} .pill.lv2{color:var(--v2)} .pill.lv3{color:var(--v3)}
+.pill .dot{width:7px;height:7px;border-radius:50%;background:currentColor}
+.pill.pz{color:var(--accent)}
+.pill.st{color:var(--muted);font-weight:500}
+.cote{font-family:var(--mono);font-size:12px;color:var(--c);letter-spacing:.04em;font-variant-numeric:tabular-nums}
+/* Index */
+.index-layout{display:grid;grid-template-columns:250px minmax(0,1fr);gap:28px;margin-top:20px}
+@media (max-width:820px){.index-layout{grid-template-columns:minmax(0,1fr)}}
+.filters{display:flex;flex-direction:column;gap:16px;align-self:start;position:sticky;top:calc(env(safe-area-inset-top,0px) + 76px)}
+@media (max-width:820px){.filters{position:static}}
+.filters label,.filters .lbl{display:block;font-size:12px;font-weight:600;color:var(--muted);margin-bottom:6px;letter-spacing:.02em}
+.filters select{width:100%;font:inherit;font-size:14px;padding:7px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink)}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font:inherit;font-size:13px;font-weight:600;padding:5px 10px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--c,var(--accent));border-color:var(--c,var(--accent));color:var(--card)}
+.check{display:flex;gap:8px;align-items:center;font-size:14px}
+.reset{font:inherit;font-size:13px;background:none;border:none;color:var(--accent);cursor:pointer;padding:0;text-align:left;text-decoration:underline}
+.count{font-size:13px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center;margin-bottom:10px}
+.count select{font:inherit;font-size:13px;padding:4px 6px;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink)}
+.results{display:flex;flex-direction:column;border-top:1px solid var(--rule)}
+.row{display:grid;grid-template-columns:72px minmax(0,1fr) auto;gap:6px 16px;padding:12px 4px;border-bottom:1px solid var(--rule);text-decoration:none;color:var(--ink);align-items:start}
+.row:hover{background:var(--card)}
+.row .nm{font-weight:600;font-size:15px}
+.row .meta{font-size:13px;color:var(--muted);margin-top:2px;overflow-wrap:anywhere}
+.row .tags{display:flex;gap:6px;flex-wrap:wrap;justify-content:flex-end}
+@media (max-width:560px){.row{grid-template-columns:minmax(0,1fr)}.row .tags{justify-content:flex-start}}
+.empty{padding:30px 0;color:var(--muted)}
+/* Arbre */
+.tree-tools{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}
+.btn{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink);cursor:pointer}
+.tree{margin-top:18px;display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:24px;align-items:start}
+.tree-col{min-width:0;background:var(--card);border:1px solid var(--rule);border-top:3px solid var(--c);border-radius:4px;padding:14px 16px}
+.tree ul{list-style:none;margin:0;padding-left:16px;border-left:1px solid var(--rule)}
+.tree-col>ul{padding-left:0;border:none}
+.tree li{margin:2px 0}
+.tree summary{cursor:pointer;padding:2px 0}
+.tree summary::marker{color:var(--muted)}
+.tree a{text-decoration:none;color:var(--ink)}
+.tree a:hover{color:var(--accent);text-decoration:underline}
+.tree .leaf{padding-left:14px;display:block}
+.tree .n{font-family:var(--mono);font-size:11px;color:var(--muted);margin-left:6px}
+.tree .lvdot{display:inline-block;width:7px;height:7px;border-radius:50%;margin-left:6px;vertical-align:middle}
+/* Fiche */
+.crumbs{font-size:13px;color:var(--muted);display:flex;flex-wrap:wrap;gap:4px 6px}
+.crumbs a{color:var(--muted)}
+.fiche-head{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.fiche-head .al{color:var(--muted);font-style:italic}
+.fiche-head .tags{display:flex;gap:6px;flex-wrap:wrap}
+.fiche{display:grid;grid-template-columns:minmax(0,1.35fr) minmax(0,1fr);gap:28px;margin-top:22px}
+@media (max-width:900px){.fiche{grid-template-columns:minmax(0,1fr)}}
+.sheet{background:var(--card);border:1px solid var(--rule);border-radius:4px}
+.sheet dl{margin:0;display:grid;grid-template-columns:150px minmax(0,1fr)}
+.sheet dt,.sheet dd{padding:11px 14px;border-top:1px solid var(--rule);margin:0}
+.sheet dt:first-of-type,.sheet dd:first-of-type{border-top:none}
+.sheet dt{font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--soft)}
+.sheet dd{font-size:14.5px;overflow-wrap:anywhere}
+@media (max-width:560px){.sheet dl{grid-template-columns:minmax(0,1fr)}.sheet dt{border-top:1px solid var(--rule)}.sheet dd{border-top:none}}
+.sheet dd ul{margin:0;padding-left:18px}
+.sheet .na{color:var(--muted);font-style:italic}
+.myth{border-left:3px solid var(--v1);padding-left:10px}
+.side{display:flex;flex-direction:column;gap:20px;min-width:0}
+.graph{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px;overflow-x:auto}
+.graph svg{display:block;width:100%;height:auto;min-width:420px}
+.graph text{font-family:var(--body);font-size:11px;fill:var(--ink);paint-order:stroke;stroke:var(--card);stroke-width:4px;stroke-linejoin:round}
+.graph .ctr{font-weight:700;font-size:12px}
+.legend{display:flex;flex-wrap:wrap;gap:6px 14px;font-size:12px;color:var(--muted);margin-top:8px}
+.legend i{display:inline-block;width:18px;height:0;border-top:2px solid;vertical-align:middle;margin-right:5px}
+.rels h3{margin-bottom:8px}
+.rel-group{margin-bottom:12px}
+.rel-group .lbl{font-size:12px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em}
+.rel-group ul{margin:4px 0 0;padding-left:18px;font-size:14px}
+.rel-group small{color:var(--muted)}
+/* Méthode */
+.prose{max-width:72ch}
+.prose p,.prose li{font-size:15px}
+.prose h2{margin-top:30px}
+.tbl-wrap{overflow-x:auto;margin-top:12px}
+table{border-collapse:collapse;width:100%;font-size:14px}
+th,td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--rule);vertical-align:top}
+th{font-size:12px;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.emb{width:var(--es,40px);height:var(--es,40px);color:var(--c);flex:none}
+.emb text{font-family:"Noto Sans Devanagari",serif;fill:currentColor;stroke:none}
+.head-row{display:flex;gap:16px;align-items:center}
+.fam-list a .lab{display:flex;gap:8px;align-items:center;font-family:var(--body);font-size:14px;color:inherit}
+.fam-list .emb{--es:20px}
+.block{margin-top:28px}
+.block h2{margin-bottom:12px}
+.purpose{font-size:16px;line-height:1.6;max-width:70ch;background:var(--card);border:1px solid var(--rule);border-left:3px solid var(--c);padding:14px 16px;border-radius:2px;margin:0}
+.purpose small{display:block;margin-top:6px;color:var(--muted);font-size:13px}
+.books{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.book{background:var(--card);border:1px solid var(--rule);border-radius:4px;padding:12px 14px;display:flex;flex-direction:column;gap:6px;min-width:0}
+.book b{font-family:var(--display);font-weight:400;font-size:16px;line-height:1.25}
+.book .by{font-size:13px;color:var(--muted)}
+.book p{margin:0;font-size:13.5px}
+.book .lk{font-size:13px;display:flex;flex-wrap:wrap;gap:4px 10px;margin-top:auto;padding-top:4px}
+.pd{font-family:var(--mono);font-size:11px;letter-spacing:.04em;text-transform:uppercase}
+.pd.y{color:var(--cR)} .pd.n{color:var(--muted)}
+blockquote.ex{margin:0 0 14px;padding:4px 0 4px 18px;border-left:2px solid var(--c);max-width:70ch}
+blockquote.ex p{margin:0;font-family:var(--display);font-size:18px;line-height:1.45}
+blockquote.ex footer{border:none;padding:6px 0 0;font-size:13px;color:var(--muted)}
+.tl{list-style:none;margin:0;padding:0;border-left:2px solid var(--rule);max-width:80ch}
+.tl li{position:relative;padding:0 0 14px 20px}
+.tl li::before{content:"";position:absolute;left:-6px;top:6px;width:10px;height:10px;border-radius:50%;background:var(--card);border:2px solid var(--c,var(--accent))}
+.tl .dt{font-family:var(--mono);font-size:12px;color:var(--c,var(--accent));display:block;font-variant-numeric:tabular-nums}
+.tl .who{font-size:12px;color:var(--muted)}
+.docs{margin:0;padding-left:18px;max-width:75ch}
+.docs li{margin-bottom:6px}
+.lib-tools{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin-top:16px}
+.lib-tools select{font:inherit;font-size:14px;padding:6px 8px;border:1px solid var(--rule);border-radius:6px;background:var(--card);color:var(--ink)}
+.lib-sec{margin-top:28px}
+.book .org{font-size:12px}
+footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--muted);font-size:13px}
+@media (prefers-reduced-motion:no-preference){.row,.chip{transition:background .15s}}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#accueil"><b>Encyclopédie des organisations</b><span>Fichier · <span id="total">0</span> fiches</span></a>
+    <nav class="tabs" aria-label="Sections">
+      <a href="#accueil" data-v="accueil">Accueil</a>
+      <a href="#index" data-v="index">Index</a>
+      <a href="#arbre" data-v="arbre">Arborescence</a>
+      <a href="#bibliotheque" data-v="bibliotheque">Bibliothèque</a>
+      <a href="#chronologie" data-v="chronologie">Chronologie</a>
+      <a href="#methode" data-v="methode">Méthode et sources</a>
+    </nav>
+    <div class="search"><input id="q" type="search" placeholder="Rechercher un nom, un fondateur, un pays…" aria-label="Rechercher"></div>
+  </div>
+</header>
+<main class="wrap" id="view"></main>
+<footer class="site"><div class="wrap">Cartographie de départ, non exhaustive. Les niveaux de vigilance décrivent des faits publics attribués, pas un jugement sur les croyances. Dernière mise à jour des données : novembre 2026.</div></footer>
+
+<script src="data.js"></script>
+<script src="extra.js"></script>
+<script src="extra2.js"></script>
+<script>
+(function(){
+const D = window.ORG_DATA || [], SRC = window.SOURCES || [], EX = window.ORG_EXTRA || {}, EMB = window.EMBLEMS || {};
+const SHAPES = {
+ compass:'<path d="M24 5 11 40M24 5l13 35M15.5 29h17"/><circle cx="24" cy="6.5" r="2.2"/><path d="M6 31l18 13 18-13"/>',
+ rosecross:'<path d="M24 4v40M10 17h28"/><circle cx="24" cy="17" r="6.5"/><circle cx="24" cy="17" r="2"/>',
+ hexagram:'<path d="M24 5 41 34H7z"/><path d="M24 43 7 14h34z"/>',
+ david:'<path d="M24 5 41 34H7z"/><path d="M24 43 7 14h34z"/>',
+ eye:'<path d="M24 6 43 40H5z"/><path d="M13 29q11-10 22 0-11 10-22 0z"/><circle cx="24" cy="29" r="2.6"/>',
+ dagger:'<path d="M24 4l3 6v20h-6V10zM14 30h20M24 30v8"/><circle cx="24" cy="41" r="3"/>',
+ table:'<circle cx="24" cy="24" r="11"/><circle cx="24" cy="6" r="2.5"/><circle cx="24" cy="42" r="2.5"/><circle cx="6" cy="24" r="2.5"/><circle cx="42" cy="24" r="2.5"/><circle cx="11" cy="11" r="2.5"/><circle cx="37" cy="37" r="2.5"/><circle cx="37" cy="11" r="2.5"/><circle cx="11" cy="37" r="2.5"/>',
+ skull:'<path d="M12 22a12 12 0 0 1 24 0v6l-4 3v7H16v-7l-4-3z"/><circle cx="19" cy="23" r="3"/><circle cx="29" cy="23" r="3"/><path d="M21 38v-4M27 38v-4M24 38v-4"/>',
+ chain:'<ellipse cx="17" cy="24" rx="10" ry="6.5" transform="rotate(-30 17 24)"/><ellipse cx="31" cy="24" rx="10" ry="6.5" transform="rotate(-30 31 24)"/>',
+ "cross-patty":'<path d="M20 6h8l-2 14 14-2v8l-14-2 2 14h-8l2-14-14 2v-8l14 2z"/>',
+ rose:'<circle cx="24" cy="22" r="12"/><path d="M24 22c0-4 5-4 5 0s-6 7-10 3 1-12 9-10 10 10 4 15M24 34v10M24 40l-6-4M24 38l6-4"/>',
+ mask:'<path d="M10 10h28v14c0 10-6 18-14 18S10 34 10 24z"/><path d="M15 20l5 2M33 20l-5 2M20 32h8"/>',
+ cross:'<path d="M24 4v40M13 15h22"/>',
+ om:'<text x="24" y="37" font-size="34" text-anchor="middle">\u0950</text>',
+ wheel:'<circle cx="24" cy="24" r="17"/><circle cx="24" cy="24" r="4"/><path d="M24 7v13M24 28v13M7 24h13M28 24h13M12 12l9.2 9.2M26.8 26.8 36 36M36 12l-9.2 9.2M21.2 26.8 12 36"/>',
+ star:'<path d="M24 4l4.7 14.5H44l-12.4 9 4.7 14.5L24 33l-12.3 9 4.7-14.5L4 18.5h15.3z"/>',
+ crescent:'<path d="M30 9a16 16 0 1 0 0 30 13 13 0 1 1 0-30z"/><path d="M36 19l1.4 3.6 3.8.2-3 2.4 1 3.7-3.2-2.1-3.2 2.1 1-3.7-3-2.4 3.8-.2z"/>',
+ spiral:'<path d="M24 24c0-2 3-2 3 0 0 4-6 4-6 0 0-6 9-6 9 0 0 8-12 8-12 0 0-10 15-10 15 0 0 12-18 12-18 0"/>',
+ khanda:'<path d="M24 4l3 5v22h-6V9z"/><circle cx="24" cy="26" r="9"/><path d="M12 14c-7 8-4 20 6 26M36 14c7 8 4 20-6 26M20 34l-4 9M28 34l4 9"/>',
+ hand:'<path d="M14 26V12a2.5 2.5 0 0 1 5 0v10V8a2.5 2.5 0 0 1 5 0v14V9a2.5 2.5 0 0 1 5 0v14-9a2.5 2.5 0 0 1 5 0v18c0 7-5 12-11 12s-11-4-12-10l-3-8a2.5 2.5 0 0 1 4.5-2z"/><circle cx="24" cy="32" r="3.5"/>',
+ yinyang:'<circle cx="24" cy="24" r="18"/><path d="M24 6a9 9 0 0 1 0 18 9 9 0 0 0 0 18" /><circle cx="24" cy="15" r="2.5"/><circle cx="24" cy="33" r="2.5"/>',
+ torii:'<path d="M5 10q19 4 38 0M9 17h30M14 10v34M34 10v34M24 17v-6"/>',
+ flame:'<path d="M24 4c3 8 12 12 12 24a12 12 0 0 1-24 0c0-6 4-9 5-14 2 4 4 5 5 7 1-6 1-11 2-17z"/><path d="M12 44h24"/>',
+ pentagram:'<circle cx="24" cy="25" r="18"/><path d="M24 7l10.6 32.6L6.9 19.4h34.2L13.4 39.6z"/>'
+};
+function emblem(o, size){ const f = o && (EMB[o.i] || EMB[o._fam]); const sh = SHAPES[f] || SHAPES.spiral;
+  return `<svg class="emb" viewBox="0 0 48 48" aria-hidden="true" ${size?`style="--es:${size}px"`:""} fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">${sh}</svg>`; }
+function nearest(o, key){ let x=o; while(x){ if(EX[x.i] && EX[x.i][key] && (!Array.isArray(EX[x.i][key]) || EX[x.i][key].length)) return x; x = x.p && by[x.p]; } return null; }
+function bookCard(b, org){ const q=encodeURIComponent(b.t.replace(/\s*\(.*?\)/g,"") + (b.au?" "+b.au.split(" (")[0]:""));
+  const links = b.pd ? `<a href="https://fr.wikisource.org/w/index.php?search=${q}" target="_blank" rel="noopener">Wikisource</a><a href="https://www.gutenberg.org/ebooks/search/?query=${q}" target="_blank" rel="noopener">Gutenberg</a><a href="https://archive.org/search?query=${q}" target="_blank" rel="noopener">Internet Archive</a><a href="https://gallica.bnf.fr/services/engine/search/sru?operation=searchRetrieve&query=${encodeURIComponent('(gallica all "'+b.t.replace(/\s*\(.*?\)/g,"")+'")')}" target="_blank" rel="noopener">Gallica</a>`
+    : `<a href="https://fr.wikipedia.org/w/index.php?search=${q}" target="_blank" rel="noopener">Présentation (Wikipédia)</a><a href="https://www.worldcat.org/search?q=${q}" target="_blank" rel="noopener">Trouver en bibliothèque</a>`;
+  return `<div class="book cat-${org?org.c:"R"}"><span class="pd ${b.pd?"y":"n"}">${b.pd?"Domaine public · texte intégral en ligne":"Œuvre protégée · présentation seulement"}</span><b>${esc(b.t)}</b>${(b.au||b.d)?`<span class="by">${esc([b.au,b.d].filter(Boolean).join(" · "))}</span>`:""}${b.desc?`<p>${esc(b.desc)}</p>`:""}${org?`<span class="org">Fiche : ${link(org.i)}</span>`:""}<div class="lk">${links}</div></div>`; }
+function quote(e, org){ return `<blockquote class="ex cat-${org?org.c:"R"}"><p>« ${esc(e.q)} »</p><footer>${esc(e.s)}${e.tr?` · ${esc(e.tr)}`:""}${org?` · ${link(org.i)}`:""}</footer></blockquote>`; }
+const CAT = {
+  S:{n:"Sociétés secrètes, discrètes et ordres initiatiques",short:"Sociétés et ordres",d:"Franc-maçonnerie, ordres ésotériques, fraternités, sociétés politiques historiques, cercles privés et réseaux clandestins. Toutes ne sont pas secrètes au même degré : beaucoup publient leurs statuts et leurs dirigeants et ne réservent que leurs cérémonies."},
+  M:{n:"Sectes et nouveaux mouvements religieux",short:"Nouveaux mouvements",d:"Groupes issus de religions existantes ou indépendants. Le mot « secte » est souvent péjoratif ; en sociologie, une branche dissidente ou une religion nouvelle n’est pas automatiquement dangereuse. Les dérives sont signalées fiche par fiche."},
+  R:{n:"Religions et leurs subdivisions",short:"Religions",d:"Grandes familles religieuses, branches, écoles, confessions, confréries et communautés. Les fiches suivent la distinction entre doctrine, tradition culturelle et organisation."}
+};
+const LV = ["Pas de controverse majeure retenue","Controverses ou accusations publiques","Décisions de justice ou rapports officiels","Violences graves ou morts documentées"];
+const LVs = ["Aucune","Controverses","Justice / rapports","Violences graves"];
+const REL = {
+  fil:{a:"Filiation doctrinale",b:"Mouvements qui en sont issus",c:"var(--cR)"},
+  dis:{a:"Issu d’une scission de",b:"Scissions et dissidences",c:"var(--v2)"},
+  inf:{a:"Influencé par",b:"A influencé",c:"var(--accent)"},
+  rev:{a:"Se réclame de (filiation non établie)",b:"Revendiqué comme modèle par",c:"var(--v1)"},
+  opp:{a:"Opposition ou condamnation",b:"Opposition ou condamnation",c:"var(--v3)"},
+  suc:{a:"Successeur de",b:"A pour successeur",c:"var(--cS)"},
+  lie:{a:"Lien organisationnel",b:"Lien organisationnel",c:"var(--muted)"}
+};
+const by = {}, kids = {}, inv = {};
+D.forEach(o=>{by[o.i]=o; kids[o.i]=[]; inv[o.i]=[];});
+D.forEach(o=>{ if(o.p && by[o.p]) kids[o.p].push(o.i); (o.r||[]).forEach(r=>{ if(by[r[1]]) inv[r[1]].push([r[0],o.i,r[2]]); }); });
+const roots = D.filter(o=>!o.p || !by[o.p]);
+// ordre de l'arbre et cotes
+const order = []; const seq = {S:0,M:0,R:0};
+function walk(id,depth){ const o=by[id]; o._d=depth; seq[o.c]++; o._cote=o.c+"·"+String(seq[o.c]).padStart(3,"0"); order.push(id); kids[id].forEach(k=>walk(k,depth+1)); }
+["S","M","R"].forEach(c=>roots.filter(o=>o.c===c).forEach(o=>walk(o.i,0)));
+function chain(o){ const a=[]; let x=o; while(x.p && by[x.p]){ x=by[x.p]; a.unshift(x);} return a; }
+D.forEach(o=>{ const ch=chain(o); o._fam = ch.length? ch[0].i : o.i; o._chain = ch; });
+function famOf(o){ return by[o._fam]; }
+function cats(o){ return [o.c].concat(o.also||[]); }
+function norm(s){ return (s||"").toString().normalize("NFD").replace(/[̀-ͯ]/g,"").toLowerCase(); }
+D.forEach(o=>{ o._txt = norm([o.n,o.a,o.o,o.w,o.d,o.f,o.x,o.m,o.t].join(" ")); o._y = year(o.d); });
+function year(d){ if(!d) return null; const bc=/av\. J\.-C\./.test(d);
+  let m=d.match(/\b(\d{3,4})\b/); if(m) return bc? -+m[1] : +m[1];
+  m=d.match(/\b([IVX]+)e(?:-[IVX]+e)? s/); if(m){ const n=roman(m[1]); return bc? -(n*100-50) : n*100-50; }
+  m=d.match(/années (\d{4})/i); if(m) return +m[1]; return null; }
+function roman(s){ const v={I:1,V:5,X:10}; let t=0; for(let i=0;i<s.length;i++){ const a=v[s[i]],b=v[s[i+1]]||0; t+= a<b? -a : a;} return t; }
+const esc = s => (s==null?"":String(s)).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const link = id => by[id]? `<a href="#f-${id}">${esc(by[id].n)}</a>` : esc(id);
+const lvPill = v => `<span class="pill lv${v||0}" title="${esc(LV[v||0])}"><span class="dot"></span>${esc(LVs[v||0])}</span>`;
+document.getElementById("total").textContent = D.length;
+
+// état des filtres
+const S = {cats:new Set(), fam:"", type:"", st:"", lv:"", pz:false, sort:"tree"};
+try{ const saved=JSON.parse(localStorage.getItem("enc-filters")||"null"); if(saved){ S.sort=saved.sort||"tree"; } }catch(e){}
+const qEl = document.getElementById("q");
+const view = document.getElementById("view");
+
+function setNav(v){ document.querySelectorAll("nav.tabs a").forEach(a=>{ if(a.dataset.v===v) a.setAttribute("aria-current","page"); else a.removeAttribute("aria-current"); }); }
+
+/* ---------- Accueil ---------- */
+function home(){
+  setNav("accueil");
+  const html = ["S","M","R"].map(c=>{
+    const fams = roots.filter(o=>o.c===c);
+    const n = D.filter(o=>cats(o).includes(c)).length;
+    return `<section class="cat cat-${c}">
+      <div class="num">${c} · ${n} fiches</div>
+      <h2>${esc(CAT[c].n)}</h2>
+      <p>${esc(CAT[c].d)}</p>
+      <ul class="fam-list">${fams.map(f=>{ const cnt=D.filter(o=>o._fam===f.i).length; return `<li><a href="#index" data-fam="${f.i}" data-cat="${c}"><span class="lab cat-${c}">${emblem(f)}${esc(f.n)}</span><span>${cnt}</span></a></li>`;}).join("")}</ul>
+    </section>`;}).join("");
+  view.innerHTML = `
+    <div class="eyebrow">Cartographie mondiale</div>
+    <h1>Sociétés initiatiques, nouveaux mouvements religieux et religions du monde</h1>
+    <p class="lede">Une fiche par organisation, courant ou branche : origine, rattachement, sous-branches, direction, influence, controverses, statut et sources. Les liens de filiation, de scission et d’influence se lisent dans chaque fiche. Un lien entre deux groupes ne signifie pas qu’ils obéissent à une même autorité.</p>
+    <div class="cats">${html}</div>
+    <div class="notes">
+      <div><h3>Niveau de vigilance</h3><p>Il résume des faits publics attribués, pas la valeur d’une croyance.</p>
+        <div class="scale">${LV.map((l,i)=>`<div>${lvPill(i)} <span style="font-size:13px;color:var(--muted)">${esc(l)}</span></div>`).join("")}</div></div>
+      <div><h3>Faits, accusations, théories</h3><p>Chaque fiche sépare les faits documentés (dates, décisions de justice, rapports officiels), les accusations attribuées à leur auteur, et une rubrique « Mythes et théories » pour les récits non établis, comme le complot des Illuminati.</p></div>
+      <div><h3>Limites</h3><p>Personne ne peut recenser toutes ces organisations : il en existe des milliers, souvent locales ou sans structure officielle. Ce fichier est un point de départ à compléter et à vérifier auprès des sources citées.</p></div>
+    </div>`;
+  view.querySelectorAll("[data-fam]").forEach(a=>a.addEventListener("click",()=>{ S.cats=new Set([a.dataset.cat]); S.fam=a.dataset.fam; qEl.value=""; }));
+}
+
+/* ---------- Index ---------- */
+function filtered(){
+  const q = norm(qEl.value.trim());
+  let r = D.filter(o=>{
+    if(S.cats.size && !cats(o).some(c=>S.cats.has(c))) return false;
+    if(S.fam && o._fam!==S.fam && o.i!==S.fam) return false;
+    if(S.type && o.t!==S.type) return false;
+    if(S.st && !(o.s||"").startsWith(S.st)) return false;
+    if(S.lv!=="" && String(o.v||0)!==S.lv) return false;
+    if(S.pz && !o.z) return false;
+    if(q && !q.split(/\s+/).every(w=>o._txt.includes(w))) return false;
+    return true; });
+  if(S.sort==="name") r.sort((a,b)=>a.n.localeCompare(b.n,"fr"));
+  else if(S.sort==="date") r.sort((a,b)=>(a._y??9999)-(b._y??9999));
+  else if(S.sort==="lv") r.sort((a,b)=>(b.v||0)-(a.v||0)||a.n.localeCompare(b.n,"fr"));
+  else r.sort((a,b)=>order.indexOf(a.i)-order.indexOf(b.i));
+  return r;
+}
+function index(){
+  setNav("index");
+  const types = [...new Set(D.map(o=>o.t))].sort((a,b)=>a.localeCompare(b,"fr"));
+  const fams = roots.filter(o=>!S.cats.size || S.cats.has(o.c));
+  view.innerHTML = `
+    <div class="eyebrow">Index</div><h1>Toutes les fiches</h1>
+    <div class="index-layout">
+      <aside class="filters" aria-label="Filtres">
+        <div><span class="lbl">Catégorie</span><div class="chips">${["S","M","R"].map(c=>`<button class="chip cat-${c}" data-c="${c}" aria-pressed="${S.cats.has(c)}">${esc(CAT[c].short)}</button>`).join("")}</div></div>
+        <div><label for="f-fam">Famille</label><select id="f-fam"><option value="">Toutes</option>${fams.map(f=>`<option value="${f.i}" ${S.fam===f.i?"selected":""}>${esc(f.n)}</option>`).join("")}</select></div>
+        <div><label for="f-type">Type</label><select id="f-type"><option value="">Tous</option>${types.map(t=>`<option ${S.type===t?"selected":""}>${esc(t)}</option>`).join("")}</select></div>
+        <div><label for="f-st">Statut</label><select id="f-st"><option value="">Tous</option>${["Actif","Dissous","Disparu","Groupes résiduels","Incertain","Historique"].map(t=>`<option ${S.st===t?"selected":""}>${t}</option>`).join("")}</select></div>
+        <div><label for="f-lv">Niveau de vigilance</label><select id="f-lv"><option value="">Tous</option>${LV.map((l,i)=>`<option value="${i}" ${S.lv===String(i)?"selected":""}>${i} · ${esc(l)}</option>`).join("")}</select></div>
+        <label class="check"><input type="checkbox" id="f-pz" ${S.pz?"checked":""}> Persécuté ou interdit dans certains pays</label>
+        <button class="reset" id="f-reset">Effacer les filtres</button>
+      </aside>
+      <section style="min-width:0">
+        <div class="count"><span id="cnt"></span><label>Trier : <select id="f-sort">
+          <option value="tree" ${S.sort==="tree"?"selected":""}>Ordre de l’arborescence</option>
+          <option value="name" ${S.sort==="name"?"selected":""}>Nom</option>
+          <option value="date" ${S.sort==="date"?"selected":""}>Date d’origine</option>
+          <option value="lv" ${S.sort==="lv"?"selected":""}>Niveau de vigilance</option></select></label></div>
+        <div class="results" id="res"></div>
+      </section>
+    </div>`;
+  view.querySelectorAll(".chip").forEach(b=>b.addEventListener("click",()=>{ const c=b.dataset.c; S.cats.has(c)?S.cats.delete(c):S.cats.add(c); if(S.fam && by[S.fam] && S.cats.size && !S.cats.has(by[S.fam].c)) S.fam=""; index(); }));
+  const bind=(id,k)=>document.getElementById(id).addEventListener("change",e=>{ S[k]=e.target.type==="checkbox"?e.target.checked:e.target.value; if(k==="sort"){ try{localStorage.setItem("enc-filters",JSON.stringify({sort:S.sort}))}catch(_){} } list(); });
+  bind("f-fam","fam"); bind("f-type","type"); bind("f-st","st"); bind("f-lv","lv"); bind("f-pz","pz"); bind("f-sort","sort");
+  document.getElementById("f-reset").addEventListener("click",()=>{ Object.assign(S,{cats:new Set(),fam:"",type:"",st:"",lv:"",pz:false}); qEl.value=""; index(); });
+  list();
+}
+function list(){
+  const r = filtered(), res = document.getElementById("res"); if(!res) return;
+  document.getElementById("cnt").textContent = r.length + (r.length>1?" fiches":" fiche");
+  if(!r.length){ res.innerHTML = `<div class="empty">Aucune fiche ne correspond. Essayez un autre mot ou effacez les filtres.</div>`; return; }
+  res.innerHTML = r.map(o=>{
+    const fam = famOf(o); const parent = o.p && by[o.p];
+    const meta = [o.t, parent && parent.i!==fam.i ? parent.n : null, fam.i!==o.i ? fam.n : null, o.d, o.w].filter(Boolean).map(esc).join(" · ");
+    return `<a class="row cat-${o.c}" href="#f-${o.i}"><span class="cote">${o._cote}</span>
+      <div style="min-width:0"><div class="nm">${esc(o.n)}</div><div class="meta">${meta}</div></div>
+      <div class="tags">${o.z?'<span class="pill pz">Persécuté</span>':""}${lvPill(o.v)}</div></a>`; }).join("");
+}
+
+/* ---------- Arborescence ---------- */
+function tree(){
+  setNav("arbre");
+  function node(id){ const o=by[id], k=kids[id]; const dot = o.v?`<span class="lvdot" style="background:var(--v${o.v})" title="${esc(LV[o.v])}"></span>`:"";
+    if(!k.length) return `<li><a class="leaf" href="#f-${id}">${esc(o.n)}</a>${dot}</li>`;
+    return `<li><details ${o._d<1?"open":""}><summary><a href="#f-${id}">${esc(o.n)}</a>${dot}<span class="n">${countDesc(id)}</span></summary><ul>${k.map(node).join("")}</ul></details></li>`; }
+  view.innerHTML = `<div class="eyebrow">Arborescence</div><h1>Familles, branches et sous-branches</h1>
+    <p class="lede">Chaque niveau se déplie. Le nombre indique les fiches rattachées ; la pastille signale un niveau de vigilance. Les mouvements issus d’une religion figurent dans leur famille de mouvements et renvoient à leur tradition d’origine dans la fiche.</p>
+    <div class="tree-tools"><button class="btn" id="t-open">Tout déplier</button><button class="btn" id="t-close">Tout replier</button></div>
+    <div class="tree">${["S","M","R"].map(c=>`<div class="tree-col cat-${c}"><div class="eyebrow" style="color:var(--c)">${c}</div><h2 style="margin:4px 0 10px">${esc(CAT[c].n)}</h2><ul>${roots.filter(o=>o.c===c).map(o=>node(o.i)).join("")}</ul></div>`).join("")}</div>`;
+  document.getElementById("t-open").onclick=()=>view.querySelectorAll("details").forEach(d=>d.open=true);
+  document.getElementById("t-close").onclick=()=>view.querySelectorAll("details").forEach(d=>d.open=false);
+}
+function countDesc(id){ let n=0; kids[id].forEach(k=>{ n+=1+countDesc(k); }); return n; }
+
+/* ---------- Fiche ---------- */
+function fiche(id){
+  const o = by[id]; if(!o){ view.innerHTML=`<p class="empty">Cette fiche n’existe pas. <a href="#index">Retour à l’index</a>.</p>`; return; }
+  setNav("");
+  const ch = o._chain, fam = famOf(o);
+  const row = (k,v)=>`<dt>${k}</dt><dd>${v || '<span class="na">Non renseigné</span>'}</dd>`;
+  const origin = [o.d && esc(o.d), o.o && "Fondateur ou figure : "+esc(o.o), o.w && "Lieu : "+esc(o.w)].filter(Boolean).join("<br>");
+  const famTxt = `${esc(CAT[o.c].n)}${fam.i!==o.i?" › "+link(fam.i):""}${(o.also||[]).length?`<br><small style="color:var(--muted)">Apparaît aussi dans : ${o.also.map(c=>esc(CAT[c].short)).join(", ")}</small>`:""}`;
+  const parent = o.p && by[o.p] ? link(o.p) : "";
+  const sub = kids[id].map(link);
+  const dissid = inv[id].filter(r=>r[0]==="dis"||r[0]==="suc").map(r=>link(r[1]));
+  const subTxt = (sub.length||dissid.length) ? `${sub.length?`<ul>${sub.map(s=>`<li>${s}</li>`).join("")}</ul>`:""}${dissid.length?`<div style="margin-top:6px"><small style="color:var(--muted)">Scissions et successeurs :</small> ${dissid.join(", ")}</div>`:""}` : "";
+  const contro = o.x ? `${lvPill(o.v)}<div style="margin-top:6px">${esc(o.x)}</div>` : lvPill(o.v);
+  const q = encodeURIComponent(o.n);
+  const srcTxt = `${o.k?`<div>${esc(o.k)}</div>`:""}<div style="margin-top:6px;font-size:13px">Pour vérifier : <a href="https://fr.wikipedia.org/w/index.php?search=${q}" target="_blank" rel="noopener">Wikipédia</a> · <a href="https://www.britannica.com/search?query=${q}" target="_blank" rel="noopener">Britannica</a>${o.c==="M"?` · <a href="https://wrldrels.org/?s=${q}" target="_blank" rel="noopener">WRSP</a>`:""}</div>`;
+  // relations groupées
+  const groups = {};
+  (o.r||[]).forEach(r=>{ (groups["a:"+r[0]] ||= []).push(r); });
+  inv[id].forEach(r=>{ if(r[0]==="dis"||r[0]==="suc") return; (groups["b:"+r[0]] ||= []).push(r); });
+  const relHtml = Object.keys(groups).length ? Object.entries(groups).map(([k,arr])=>{ const [dir,t]=k.split(":"); return `<div class="rel-group"><div class="lbl" style="color:${REL[t].c}">${esc(REL[t][dir])}</div><ul>${arr.map(r=>`<li>${link(r[1])}${r[2]?` <small>(${esc(r[2])})</small>`:""}</li>`).join("")}</ul></div>`; }).join("") : `<p class="na" style="color:var(--muted)">Aucune relation transversale renseignée en dehors de l’arborescence.</p>`;
+  view.innerHTML = `
+    <div class="crumbs cat-${o.c}"><a href="#arbre">${esc(CAT[o.c].short)}</a>${ch.map(x=>` › <a href="#f-${x.i}">${esc(x.n)}</a>`).join("")}</div>
+    <div class="fiche-head cat-${o.c}"><span class="cote">${o._cote} · ${esc(o.t)}</span><div class="head-row">${emblem(o,52)}<h1>${esc(o.n)}</h1></div>${o.a?`<div class="al">${esc(o.a)}</div>`:""}
+      <div class="tags"><span class="pill st">${esc(o.s||"Statut inconnu")}</span>${lvPill(o.v)}${o.z?'<span class="pill pz">Persécuté ou interdit dans certains pays</span>':""}</div></div>
+    <div class="fiche">
+      <div class="sheet"><dl>
+        ${row("Nom", esc(o.n)+(o.a?`<br><small style="color:var(--muted)">Autres noms : ${esc(o.a)}</small>`:""))}
+        ${row("Origine", origin)}
+        ${row("Famille", famTxt)}
+        ${row("Branche", parent)}
+        ${row("Sous-branches", subTxt)}
+        ${row("Direction", o.g?esc(o.g):"")}
+        ${row("Influence", o.f?esc(o.f):"")}
+        ${row("Controverses", contro)}
+        ${o.m?row("Mythes et théories", `<div class="myth">${esc(o.m)}</div>`):""}
+        ${row("Statut", esc(o.s||""))}
+        ${row("Sources", srcTxt)}
+      </dl></div>
+      <div class="side">
+        <div><h3 style="margin-bottom:8px">Carte des relations</h3><div class="graph">${ego(o)}</div>
+          <div class="legend"><span><i style="border-color:var(--rule)"></i>Arborescence</span>${Object.entries(REL).map(([k,r])=>`<span><i style="border-color:${r.c}"></i>${esc(r.a.split(" (")[0])}</span>`).join("")}</div></div>
+        <div class="rels"><h3>Relations</h3>${relHtml}</div>
+      </div>
+    </div>${extraBlocks(o)}`;
+  window.scrollTo(0,0);
+}
+function extraBlocks(o){
+  const ex = EX[o.i] || {}; let h = "";
+  const bo = nearest(o,"b");
+  if(bo) h += `<section class="block cat-${o.c}"><h2>But et doctrine</h2><p class="purpose">${esc(EX[bo.i].b)}${bo.i!==o.i?`<small>Résumé de la tradition de rattachement : ${link(bo.i)}. Les buts propres à cette fiche restent à documenter.</small>`:""}</p></section>`;
+  const lo = nearest(o,"l");
+  if(lo) h += `<section class="block"><h2>Textes de référence</h2>${lo.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(lo.i)}.</p>`:""}<div class="books">${EX[lo.i].l.map(b=>bookCard(b)).join("")}</div></section>`;
+  const eo = nearest(o,"e");
+  if(eo) h += `<section class="block"><h2>Extraits</h2>${EX[eo.i].e.map(e=>quote(e)).join("")}<p style="font-size:13px;color:var(--muted);margin:6px 0 0">Seuls des textes du domaine public sont cités ; les œuvres protégées sont présentées sans extrait.${eo.i!==o.i?` Extraits de la tradition ${link(eo.i)}.`:""}</p></section>`;
+  if(ex.h && ex.h.length) h += `<section class="block cat-${o.c}"><h2>Chronologie détaillée</h2><ol class="tl">${ex.h.map(([d,t])=>`<li><span class="dt">${esc(d)}</span>${esc(t)}</li>`).join("")}</ol></section>`;
+  if(ex.doc && ex.doc.length) h += `<section class="block"><h2>Documents</h2><ul class="docs">${ex.doc.map(d=>`<li>${d.u?`<a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a>`:`<a href="https://www.google.com/search?q=${encodeURIComponent(d.t)}" target="_blank" rel="noopener">${esc(d.t)}</a>`}${d.desc?` <span style="color:var(--muted)">: ${esc(d.desc)}</span>`:""}</li>`).join("")}</ul></section>`;
+  return h;
+}
+/* ---------- Bibliothèque ---------- */
+function biblio(){
+  setNav("bibliotheque");
+  const items=[]; Object.entries(EX).forEach(([id,x])=>{ if(by[id]) (x.l||[]).forEach(b=>items.push([b,by[id]])); });
+  const quotes=[]; Object.entries(EX).forEach(([id,x])=>{ if(by[id]) (x.e||[]).forEach(e=>quotes.push([e,by[id]])); });
+  view.innerHTML = `<div class="eyebrow">Bibliothèque</div><h1>Textes fondateurs et extraits</h1>
+   <p class="lede">${items.length} textes de référence et ${quotes.length} extraits. Les textes du domaine public renvoient vers leur version intégrale dans les bibliothèques numériques (Wikisource, Gutenberg, Internet Archive, Gallica). Les œuvres protégées sont seulement présentées.</p>
+   <div class="lib-tools"><label for="lb-cat">Catégorie</label><select id="lb-cat"><option value="">Toutes</option>${["S","M","R"].map(c=>`<option value="${c}">${esc(CAT[c].short)}</option>`).join("")}</select>
+     <label for="lb-pd">Accès</label><select id="lb-pd"><option value="">Tous</option><option value="1">Domaine public</option><option value="0">Œuvres protégées</option></select></div>
+   <section class="lib-sec"><h2 style="margin-bottom:12px">Textes</h2><div class="books" id="lb-books"></div></section>
+   <section class="lib-sec"><h2 style="margin-bottom:12px">Extraits</h2><div id="lb-q"></div></section>`;
+  const draw=()=>{ const c=document.getElementById("lb-cat").value, pd=document.getElementById("lb-pd").value;
+    const f=items.filter(([b,o])=>(!c||cats(o).includes(c))&&(pd===""||String(+!!b.pd)===pd));
+    document.getElementById("lb-books").innerHTML = f.map(([b,o])=>bookCard(b,o)).join("") || '<p class="empty">Aucun texte.</p>';
+    document.getElementById("lb-q").innerHTML = quotes.filter(([e,o])=>!c||cats(o).includes(c)).map(([e,o])=>quote(e,o)).join("") || '<p class="empty">Aucun extrait.</p>'; };
+  document.getElementById("lb-cat").onchange=draw; document.getElementById("lb-pd").onchange=draw; draw();
+}
+/* ---------- Chronologie ---------- */
+function chrono(){
+  setNav("chronologie");
+  const ev=[]; Object.entries(EX).forEach(([id,x])=>{ if(by[id]) (x.h||[]).forEach(([d,t])=>ev.push({d,t,o:by[id],y:year(d)??9999})); });
+  ev.sort((a,b)=>a.y-b.y);
+  view.innerHTML = `<div class="eyebrow">Chronologie</div><h1>Faits, affaires et controverses</h1>
+   <p class="lede">${ev.length} événements datés, issus des fiches détaillées. Les faits judiciaires renvoient aux décisions citées dans chaque fiche.</p>
+   <div class="lib-tools"><label for="ch-cat">Catégorie</label><select id="ch-cat"><option value="">Toutes</option>${["S","M","R"].map(c=>`<option value="${c}">${esc(CAT[c].short)}</option>`).join("")}</select></div>
+   <ol class="tl" id="ch-list" style="margin-top:20px"></ol>`;
+  const draw=()=>{ const c=document.getElementById("ch-cat").value;
+    document.getElementById("ch-list").innerHTML = ev.filter(e=>!c||cats(e.o).includes(c)).map(e=>`<li class="cat-${e.o.c}" style="--c:var(--c${e.o.c})"><span class="dt">${esc(e.d)}</span>${esc(e.t)} <span class="who">· ${link(e.o.i)}</span></li>`).join(""); };
+  document.getElementById("ch-cat").onchange=draw; draw();
+}
+function ego(o){
+  const W=560,H=360,cx=W/2,cy=H/2;
+  const nodes=[]; const seen=new Set([o.i]);
+  const add=(id,kind,t)=>{ if(seen.has(id)||!by[id]) return; seen.add(id); nodes.push({id,kind,t}); };
+  if(o.p) add(o.p,"parent");
+  (o.r||[]).forEach(r=>add(r[1],"out",r[0]));
+  inv[o.i].forEach(r=>add(r[1],"in",r[0]));
+  kids[o.i].forEach(k=>add(k,"child"));
+  const max=14, extra=nodes.length-max, shown=nodes.slice(0,max);
+  const n=shown.length; const R=Math.min(150, 90+n*5);
+  let svg=`<svg viewBox="0 0 ${W} ${H}" role="img" aria-label="Relations de ${esc(o.n)}">`;
+  const pos = shown.map((nd,i)=>{ const a = -Math.PI/2 + (i/(n||1))*Math.PI*2; return {x:cx+Math.cos(a)*R*1.45, y:cy+Math.sin(a)*R*0.82, nd}; });
+  pos.forEach(p=>{ const col = p.nd.kind==="parent"||p.nd.kind==="child" ? "var(--rule)" : REL[p.nd.t].c; const dash = p.nd.t==="rev"?' stroke-dasharray="4 3"':"";
+    svg+=`<line x1="${cx}" y1="${cy}" x2="${p.x}" y2="${p.y}" stroke="${col}" stroke-width="${p.nd.kind==="parent"||p.nd.kind==="child"?1.5:2}"${dash}/>`; });
+  pos.forEach(p=>{ const t=by[p.nd.id]; const lbl = t.n.length>26? t.n.slice(0,25)+"…" : t.n; const anchor = p.x<cx-20?"end":p.x>cx+20?"start":"middle"; const dx = anchor==="end"?-8:anchor==="start"?8:0; const dy = anchor==="middle"?(p.y<cy?-9:16):4;
+    svg+=`<a href="#f-${t.i}"><circle cx="${p.x}" cy="${p.y}" r="5" fill="var(--c${t.c})"/><text x="${p.x+dx}" y="${p.y+dy}" text-anchor="${anchor}">${esc(lbl)}</text></a>`; });
+  svg+=`<circle cx="${cx}" cy="${cy}" r="9" fill="var(--c${o.c})" stroke="var(--card)" stroke-width="3"/><text class="ctr" x="${cx}" y="${cy+26}" text-anchor="middle">${esc(o.n.length>34?o.n.slice(0,33)+"…":o.n)}</text>`;
+  if(extra>0) svg+=`<text x="${W-8}" y="${H-8}" text-anchor="end" fill="var(--muted)">+ ${extra} autres liens dans la fiche</text>`;
+  if(!n) svg+=`<text x="${cx}" y="${cy-24}" text-anchor="middle" fill="var(--muted)">Aucun lien renseigné</text>`;
+  return svg+"</svg>";
+}
+
+/* ---------- Méthode ---------- */
+function methode(){
+  setNav("methode");
+  view.innerHTML = `<div class="prose">
+    <div class="eyebrow">Méthode et sources</div><h1>Comment lire ce fichier</h1>
+    <p class="lede">Ce fichier distingue les filiations historiques réelles, les affiliations revendiquées et les rapprochements inventés. Il ne prétend pas à l’exhaustivité.</p>
+    <h2>Champs d’une fiche</h2>
+    <div class="tbl-wrap"><table><thead><tr><th>Champ</th><th>Contenu</th></tr></thead><tbody>
+      <tr><td>Nom</td><td>Nom usuel et autres appellations</td></tr>
+      <tr><td>Origine</td><td>Date, fondateur ou figure de référence, lieu</td></tr>
+      <tr><td>Famille</td><td>Catégorie et grande famille de rattachement</td></tr>
+      <tr><td>Branche</td><td>Organisation mère ou courant parent dans l’arborescence</td></tr>
+      <tr><td>Sous-branches</td><td>Branches rattachées, scissions et successeurs</td></tr>
+      <tr><td>Direction</td><td>Structure de gouvernance connue</td></tr>
+      <tr><td>Influence</td><td>Activités et relations documentées</td></tr>
+      <tr><td>Controverses</td><td>Accusations attribuées, enquêtes, condamnations</td></tr>
+      <tr><td>Mythes et théories</td><td>Récits non établis, signalés comme tels</td></tr>
+      <tr><td>Statut</td><td>Actif, dissous, disparu, groupes résiduels ou incertain</td></tr>
+      <tr><td>Sources</td><td>Référence indicative et liens de vérification</td></tr>
+    </tbody></table></div>
+    <h2>Types de relations</h2>
+    <div class="tbl-wrap"><table><tbody>${Object.entries(REL).map(([k,r])=>`<tr><td style="color:${r.c};font-weight:600;white-space:nowrap">${esc(r.a)}</td><td>${esc({fil:"Le mouvement s’inscrit dans la doctrine d’une tradition plus ancienne.",dis:"Le groupe est né d’une rupture avec une organisation existante.",inf:"Emprunts doctrinaux ou rituels attestés, sans rattachement.",rev:"Le groupe revendique un héritage que les historiens ne confirment pas (par exemple les ordres « néo-templiers »).",opp:"Condamnation, rupture de reconnaissance ou conflit ouvert.",suc:"Organisation qui a pris la suite d’une autre après sa dissolution.",lie:"Lien institutionnel : reconnaissance, rattachement, partenariat."}[k])}</td></tr>`).join("")}</tbody></table></div>
+    <h2>Niveaux de vigilance</h2>
+    <p>Le niveau résume des faits publics, du plus faible au plus grave. Il ne mesure ni la vérité ni la valeur d’une croyance, et il ne se substitue pas à l’avis des autorités compétentes. Une organisation persécutée par un État est signalée à part : une interdiction peut viser une minorité pacifique.</p>
+    <div class="scale">${LV.map((l,i)=>`<div>${lvPill(i)} ${esc(l)}</div>`).join("")}</div>
+    <h2>À propos du mot « secte »</h2>
+    <p>Le mot est souvent employé comme une insulte. En sociologie des religions, une branche dissidente ou une religion nouvelle n’est pas en soi dangereuse. En France, la Miviludes parle de « dérives sectaires » et retient des critères liés à l’emprise mentale et aux atteintes aux personnes, non aux croyances.</p>
+    <h2>Sources de départ</h2>
+    <ul>${SRC.map(s=>`<li><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a></li>`).join("")}</ul>
+    <p>Autres références : Cambridge Elements, « Abuse in New Religious Movements » ; University of Chicago, « Secrecy, Silence, Power, and Religion » ; Antoine Faivre, « L’Ésotérisme » ; Nicholas Goodrick-Clarke, « Les Racines occultistes du nazisme ».</p>
+    <h2>Images et textes</h2>
+    <p>Les illustrations sont des emblèmes dessinés pour ce fichier, d’après les symboles publics de chaque tradition. Les photographies et gravures ne sont pas intégrées : elles demandent de vérifier leur licence une par une. Les extraits proviennent uniquement de textes du domaine public, et certaines traductions sont faites pour ce fichier (signalées « traduction libre »). Pour lire un texte en entier, suivez les liens de la Bibliothèque.</p>
+    <h2>Ce qui reste à documenter</h2>
+    <p>Branches locales, petites organisations historiques, milliers de mouvements indépendants, et pour chaque fiche des références précises (archives, décisions de justice, études universitaires). Les données sont rédigées à la date de novembre 2026 ; certaines procédures judiciaires évoluent.</p>
+  </div>`;
+}
+
+/* ---------- Routage ---------- */
+function route(){
+  const h = (location.hash||"#accueil").slice(1);
+  if(h.startsWith("f-")) fiche(h.slice(2));
+  else if(h==="index") index();
+  else if(h==="arbre") tree();
+  else if(h==="methode") methode();
+  else if(h==="bibliotheque") biblio();
+  else if(h==="chronologie") chrono();
+  else home();
+}
+let t; qEl.addEventListener("input",()=>{ clearTimeout(t); t=setTimeout(()=>{ if(location.hash!=="#index"){ location.hash="index"; } else list(); },120); });
+window.addEventListener("hashchange",route);
+route();
+})();
+</script>
+</body>
+</html>
