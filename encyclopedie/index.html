@@ -211,6 +211,9 @@ footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--mute
 <script src="textes/islam.js"></script>
 <script src="textes/hindouisme.js"></script>
 <script src="textes/bouddhisme.js"></script>
+<script src="textes/chine.js"></script>
+<script src="textes/zoroastrisme.js"></script>
+<script src="textes/initiatiques.js"></script>
 <script>
 (function(){
 const D = window.ORG_DATA || [], SRC = window.SOURCES || [], EX = window.ORG_EXTRA || {}, EMB = window.EMBLEMS || {};
@@ -455,7 +458,7 @@ function extraBlocks(o){
   const lo = nearest(o,"l");
   if(lo) h += `<section class="block"><h2>Textes de référence</h2>${lo.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(lo.i)}.</p>`:""}<div class="books">${EX[lo.i].l.map(b=>bookCard(b)).join("")}</div></section>`;
   const sto = (()=>{ let x=o; while(x){ if(ST.some(t=>t.trad===x.i)) return x; x = x.p && by[x.p]; } return null; })();
-  if(sto) h += `<section class="block"><h2>Textes sacrés : but et contexte</h2>${sto.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(sto.i)}.</p>`:""}<div class="books">${ST.filter(t=>t.trad===sto.i).map(t=>sacredCard(t)).join("")}</div></section>`;
+  if(sto) h += `<section class="block"><h2>Textes fondateurs : but et contexte</h2>${sto.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(sto.i)}.</p>`:""}<div class="books">${ST.filter(t=>t.trad===sto.i).map(t=>sacredCard(t)).join("")}</div></section>`;
   const eo = nearest(o,"e");
   if(eo) h += `<section class="block"><h2>Extraits</h2>${EX[eo.i].e.map(e=>quote(e)).join("")}<p style="font-size:13px;color:var(--muted);margin:6px 0 0">Seuls des textes du domaine public sont cités ; les œuvres protégées sont présentées sans extrait.${eo.i!==o.i?` Extraits de la tradition ${link(eo.i)}.`:""}</p></section>`;
   if(ex.h && ex.h.length) h += `<section class="block cat-${o.c}"><h2>Chronologie détaillée</h2><ol class="tl">${ex.h.map(([d,t])=>`<li><span class="dt">${esc(d)}</span>${esc(t)}</li>`).join("")}</ol></section>`;
