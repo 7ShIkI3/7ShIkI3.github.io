@@ -57,13 +57,13 @@ window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
   "L’obédience est masculine et entretient des relations avec d’autres obédiences françaises dites traditionnelles."
  ],
  hist:[
-  "En 1958, des loges de la GLNF en désaccord avec la direction de l’obédience la quittent ; elles sont appelées « loges de l’Opéra », du nom du quartier parisien où elles se réunissaient. Elles forment une obédience longtemps connue sous le nom de « GLNF-Opéra ».",
+  "En 1958, des loges de la GLNF en désaccord avec la direction de l’obédience la quittent ; elles sont appelées « loges de l’Opéra ». Elles forment une obédience longtemps connue sous le nom de « GLNF-Opéra ».",
   "Elle prend ensuite le nom de Grande Loge traditionnelle et symbolique Opéra. Elle reste une obédience de taille moyenne dans le paysage maçonnique français."
  ],
  contro:[
   {k:"fait",t:"La GLTSO n’est pas reconnue par la Grande Loge unie d’Angleterre, qui ne reconnaît en France que la GLNF."},
-  {k:"acc",t:"Sa création est le résultat d’un conflit interne à la GLNF ; les deux obédiences ont longtemps contesté leur légitimité respective."},
-  {k:"mythe",t:"Le surnom « Opéra » ne renvoie à aucun rituel particulier ni à un lien avec le monde du spectacle : il vient du lieu de réunion des premières loges."}
+  {k:"acc",t:"Sa création est le résultat d’un conflit interne à la GLNF."},
+  {k:"mythe",t:"Aucune source sérieuse ne lui attribue de but caché ou d’influence occulte."}
  ],
  lire:["Daniel Ligou (dir.), Dictionnaire de la franc-maçonnerie, PUF.","Roger Dachez, Histoire de la franc-maçonnerie française, PUF."]
 },
