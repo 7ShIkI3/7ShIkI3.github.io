@@ -206,6 +206,9 @@ footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--mute
 <script src="data.js"></script>
 <script src="extra.js"></script>
 <script src="extra2.js"></script>
+<script src="textes/judaisme.js"></script>
+<script src="textes/christianisme.js"></script>
+<script src="textes/islam.js"></script>
 <script>
 (function(){
 const D = window.ORG_DATA || [], SRC = window.SOURCES || [], EX = window.ORG_EXTRA || {}, EMB = window.EMBLEMS || {};
@@ -243,6 +246,10 @@ function bookCard(b, org){ const q=encodeURIComponent(b.t.replace(/\s*\(.*?\)/g,
     : `<a href="https://fr.wikipedia.org/w/index.php?search=${q}" target="_blank" rel="noopener">Présentation (Wikipédia)</a><a href="https://www.worldcat.org/search?q=${q}" target="_blank" rel="noopener">Trouver en bibliothèque</a>`;
   return `<div class="book cat-${org?org.c:"R"}"><span class="pd ${b.pd?"y":"n"}">${b.pd?"Domaine public · texte intégral en ligne":"Œuvre protégée · présentation seulement"}</span><b>${esc(b.t)}</b>${(b.au||b.d)?`<span class="by">${esc([b.au,b.d].filter(Boolean).join(" · "))}</span>`:""}${b.desc?`<p>${esc(b.desc)}</p>`:""}${org?`<span class="org">Fiche : ${link(org.i)}</span>`:""}<div class="lk">${links}</div></div>`; }
 function quote(e, org){ return `<blockquote class="ex cat-${org?org.c:"R"}"><p>« ${esc(e.q)} »</p><footer>${esc(e.s)}${e.tr?` · ${esc(e.tr)}`:""}${org?` · ${link(org.i)}`:""}</footer></blockquote>`; }
+const ST = window.SACRED_TEXTS || [];
+const STQ = {ws:["Wikisource",q=>"https://fr.wikisource.org/w/index.php?search="+encodeURIComponent(q)],gb:["Gutenberg",q=>"https://www.gutenberg.org/ebooks/search/?query="+encodeURIComponent(q)],ga:["Gallica",q=>"https://gallica.bnf.fr/services/engine/search/sru?operation=searchRetrieve&query="+encodeURIComponent('(gallica all "'+q+'")')],ia:["Internet Archive",q=>"https://archive.org/search?query="+encodeURIComponent(q)]};
+function stLinks(x){ return (x.links||[]).map(l=>{ if(l.u) return `<a href="${esc(l.u)}" target="_blank" rel="noopener">${esc(l.n)}</a>`; const k=Object.keys(STQ).find(k=>l[k]); return k?`<a href="${esc(STQ[k][1](l[k]))}" target="_blank" rel="noopener">${STQ[k][0]} (recherche)</a>`:""; }).join(""); }
+function sacredCard(x, org){ return `<div class="book st cat-${org?org.c:"R"}"><span class="pd y">Texte intégral en ligne</span><b>${esc(x.t)}</b>${x.alt?`<span class="by">${esc(x.alt)}</span>`:""}<span class="by">${esc([x.d,x.lang].filter(Boolean).join(" · "))}</span><p><strong>But.</strong> ${esc(x.but)}</p><p><strong>Contexte.</strong> ${esc(x.ctx)}</p>${org?`<span class="org">Fiche : ${link(org.i)}</span>`:""}<div class="lk">${stLinks(x)}</div></div>`; }
 const CAT = {
   S:{n:"Sociétés secrètes, discrètes et ordres initiatiques",short:"Sociétés et ordres",d:"Franc-maçonnerie, ordres ésotériques, fraternités, sociétés politiques historiques, cercles privés et réseaux clandestins. Toutes ne sont pas secrètes au même degré : beaucoup publient leurs statuts et leurs dirigeants et ne réservent que leurs cérémonies."},
   M:{n:"Sectes et nouveaux mouvements religieux",short:"Nouveaux mouvements",d:"Groupes issus de religions existantes ou indépendants. Le mot « secte » est souvent péjoratif ; en sociologie, une branche dissidente ou une religion nouvelle n’est pas automatiquement dangereuse. Les dérives sont signalées fiche par fiche."},
@@ -445,6 +452,8 @@ function extraBlocks(o){
   if(bo) h += `<section class="block cat-${o.c}"><h2>But et doctrine</h2><p class="purpose">${esc(EX[bo.i].b)}${bo.i!==o.i?`<small>Résumé de la tradition de rattachement : ${link(bo.i)}. Les buts propres à cette fiche restent à documenter.</small>`:""}</p></section>`;
   const lo = nearest(o,"l");
   if(lo) h += `<section class="block"><h2>Textes de référence</h2>${lo.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(lo.i)}.</p>`:""}<div class="books">${EX[lo.i].l.map(b=>bookCard(b)).join("")}</div></section>`;
+  const sto = (()=>{ let x=o; while(x){ if(ST.some(t=>t.trad===x.i)) return x; x = x.p && by[x.p]; } return null; })();
+  if(sto) h += `<section class="block"><h2>Textes sacrés : but et contexte</h2>${sto.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(sto.i)}.</p>`:""}<div class="books">${ST.filter(t=>t.trad===sto.i).map(t=>sacredCard(t)).join("")}</div></section>`;
   const eo = nearest(o,"e");
   if(eo) h += `<section class="block"><h2>Extraits</h2>${EX[eo.i].e.map(e=>quote(e)).join("")}<p style="font-size:13px;color:var(--muted);margin:6px 0 0">Seuls des textes du domaine public sont cités ; les œuvres protégées sont présentées sans extrait.${eo.i!==o.i?` Extraits de la tradition ${link(eo.i)}.`:""}</p></section>`;
   if(ex.h && ex.h.length) h += `<section class="block cat-${o.c}"><h2>Chronologie détaillée</h2><ol class="tl">${ex.h.map(([d,t])=>`<li><span class="dt">${esc(d)}</span>${esc(t)}</li>`).join("")}</ol></section>`;
@@ -457,14 +466,17 @@ function biblio(){
   const items=[]; Object.entries(EX).forEach(([id,x])=>{ if(by[id]) (x.l||[]).forEach(b=>items.push([b,by[id]])); });
   const quotes=[]; Object.entries(EX).forEach(([id,x])=>{ if(by[id]) (x.e||[]).forEach(e=>quotes.push([e,by[id]])); });
   view.innerHTML = `<div class="eyebrow">Bibliothèque</div><h1>Textes fondateurs et extraits</h1>
-   <p class="lede">${items.length} textes de référence et ${quotes.length} extraits. Les textes du domaine public renvoient vers leur version intégrale dans les bibliothèques numériques (Wikisource, Gutenberg, Internet Archive, Gallica). Les œuvres protégées sont seulement présentées.</p>
+   <p class="lede">${ST.length} textes sacrés présentés en détail, ${items.length} textes de référence et ${quotes.length} extraits. Les textes du domaine public renvoient vers leur version intégrale dans les bibliothèques numériques (Wikisource, Gutenberg, Internet Archive, Gallica). Les œuvres protégées sont seulement présentées.</p>
    <div class="lib-tools"><label for="lb-cat">Catégorie</label><select id="lb-cat"><option value="">Toutes</option>${["S","M","R"].map(c=>`<option value="${c}">${esc(CAT[c].short)}</option>`).join("")}</select>
      <label for="lb-pd">Accès</label><select id="lb-pd"><option value="">Tous</option><option value="1">Domaine public</option><option value="0">Œuvres protégées</option></select></div>
+   <section class="lib-sec"><h2 style="margin-bottom:6px">Textes sacrés et initiatiques</h2><p style="margin:0 0 12px;font-size:14px;color:var(--muted)">But et contexte de chaque texte, avec des liens vers les versions intégrales.</p><div id="lb-st"></div></section>
    <section class="lib-sec"><h2 style="margin-bottom:12px">Textes</h2><div class="books" id="lb-books"></div></section>
    <section class="lib-sec"><h2 style="margin-bottom:12px">Extraits</h2><div id="lb-q"></div></section>`;
   const draw=()=>{ const c=document.getElementById("lb-cat").value, pd=document.getElementById("lb-pd").value;
     const f=items.filter(([b,o])=>(!c||cats(o).includes(c))&&(pd===""||String(+!!b.pd)===pd));
     document.getElementById("lb-books").innerHTML = f.map(([b,o])=>bookCard(b,o)).join("") || '<p class="empty">Aucun texte.</p>';
+    const stf=ST.filter(t=>by[t.trad]&&(!c||cats(by[t.trad]).includes(c))); const groups=[...new Set(stf.map(t=>t.trad))];
+    document.getElementById("lb-st").innerHTML = groups.map(g=>`<h3 style="margin:18px 0 10px">${esc(by[g].n)}</h3><div class="books">${stf.filter(t=>t.trad===g).map(t=>sacredCard(t,by[g])).join("")}</div>`).join("") || '<p class="empty">Aucun texte pour cette catégorie.</p>';
     document.getElementById("lb-q").innerHTML = quotes.filter(([e,o])=>!c||cats(o).includes(c)).map(([e,o])=>quote(e,o)).join("") || '<p class="empty">Aucun extrait.</p>'; };
   document.getElementById("lb-cat").onchange=draw; document.getElementById("lb-pd").onchange=draw; draw();
 }
