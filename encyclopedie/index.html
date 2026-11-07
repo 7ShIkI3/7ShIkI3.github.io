@@ -8,7 +8,7 @@
 <title>Encyclopédie des organisations</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Public+Sans:ital,wght@0,400;0,500;0,600;0,700;1,400&family=IBM+Plex+Mono:wght@400;500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=Inter:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap">
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+Devanagari:wght@600&text=%E0%A5%90&display=swap">
 <style>
 /* Mise en page : fichier de bibliothèque. Bandeau de recherche fixe, index en fiches cotées, arborescence dépliable, fiche détaillée avec graphe de relations. */
@@ -17,8 +17,9 @@
   --accent:#27466f; --accent-soft:#dfe6ef;
   --cS:#5e3a86; --cM:#8a5d00; --cR:#2c6649;
   --v0:#6d757c; --v1:#9a7300; --v2:#b45309; --v3:#b3261e;
-  --display:"Young Serif", Georgia, "Times New Roman", serif;
-  --body:"Public Sans", "Helvetica Neue", Arial, sans-serif;
+  --display:"Newsreader", Georgia, "Times New Roman", serif;
+  --serif:"Newsreader", Georgia, "Times New Roman", serif;
+  --body:"Inter", "Helvetica Neue", Arial, sans-serif;
   --mono:"IBM Plex Mono", ui-monospace, Menlo, Consolas, monospace;
 }
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
@@ -182,6 +183,111 @@ blockquote.ex footer{border:none;padding:6px 0 0;font-size:13px;color:var(--mute
 .book .org{font-size:12px}
 footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--muted);font-size:13px}
 @media (prefers-reduced-motion:no-preference){.row,.chip{transition:background .15s}}
+/* ===== Refonte graphique (nov. 2026) : lecture longue, fiches en article, mobile ===== */
+:root{
+  --paper:#f6f4ee; --card:#fffdf8; --ink:#1b1f24; --muted:#5d636a; --rule:#dcd8cd; --soft:#eeebe2;
+  --accent:#2a4a7a; --accent-soft:#e3e9f2;
+  --cS:#5b3a8c; --cM:#8a5a00; --cR:#2a6a4a;
+  --radius:10px; --shadow:0 1px 2px rgba(20,20,10,.04),0 6px 20px -12px rgba(20,20,10,.18);
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --paper:#121417; --card:#1a1d21; --ink:#e8e6e0; --muted:#a0a6ac; --rule:#2f343a; --soft:#22262b;
+  --accent:#a8c1e6; --accent-soft:#233148; --shadow:none}}
+:root[data-theme="dark"]{
+  --paper:#121417; --card:#1a1d21; --ink:#e8e6e0; --muted:#a0a6ac; --rule:#2f343a; --soft:#22262b;
+  --accent:#a8c1e6; --accent-soft:#233148; --shadow:none}
+body{font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility}
+h1,h2,h3{font-weight:500;letter-spacing:-.01em}
+h1{font-size:clamp(30px,5vw,48px);line-height:1.08}
+h2{font-size:clamp(22px,2.6vw,28px)}
+h3{font-size:19px}
+.lede{font-size:17px;line-height:1.6}
+/* En-tête */
+header.top{background:color-mix(in srgb,var(--card) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);-webkit-backdrop-filter:saturate(1.4) blur(10px)}
+.top .wrap{padding-block:12px;gap:10px 22px}
+.brand b{font-size:22px;font-weight:500}
+nav.tabs a{font-size:13.5px;padding:7px 11px;border-radius:999px;transition:background .15s,color .15s}
+nav.tabs a:hover{color:var(--ink);background:var(--soft)}
+nav.tabs a[aria-current="page"]{background:var(--ink);color:var(--card)}
+.search input{border-radius:999px;padding:9px 16px;background:var(--card);font-size:14.5px}
+@media (max-width:760px){
+  .top .wrap{gap:8px}
+  .brand{width:100%;justify-content:space-between}
+  .brand b{font-size:19px}
+  .brand>span{display:none}
+  nav.tabs{order:3;width:100%;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;margin:0 -4px;padding:0 4px 2px}
+  nav.tabs::-webkit-scrollbar{display:none}
+  nav.tabs a{white-space:nowrap;flex:none}
+  .search{order:2;flex-basis:100%}
+}
+main{padding-block:32px 80px}
+/* Cartes et listes */
+.cat,.tree-col,.sheet,.graph,.book{border-radius:var(--radius);box-shadow:var(--shadow)}
+.cat{padding:22px;border-top-width:4px}
+.cat h2{font-size:23px}
+.row{border-radius:6px}
+.row .nm{font-size:16px}
+/* Accueil : articles développés */
+.featured{margin-top:36px}
+.featured-head{display:flex;justify-content:space-between;align-items:baseline;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.feat-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:14px}
+.feat{display:flex;flex-direction:column;gap:8px;padding:18px;background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);box-shadow:var(--shadow);text-decoration:none;color:var(--ink);min-width:0;transition:transform .15s,border-color .15s}
+.feat:hover{border-color:var(--c);transform:translateY(-2px)}
+.feat .ft{display:flex;gap:10px;align-items:center}
+.feat b{font-family:var(--serif);font-weight:500;font-size:19px;line-height:1.2}
+.feat p{margin:0;font-size:14px;color:var(--muted);display:-webkit-box;-webkit-line-clamp:4;-webkit-box-orient:vertical;overflow:hidden}
+.feat .emb{--es:30px}
+/* Fiche : en-tête */
+.fiche-hero{margin-top:14px;padding:28px 28px 24px;background:var(--card);border:1px solid var(--rule);border-radius:calc(var(--radius) + 4px);box-shadow:var(--shadow);position:relative;overflow:hidden}
+.fiche-hero::before{content:"";position:absolute;inset:0 0 auto;height:5px;background:var(--c)}
+.fiche-hero .head-row{gap:18px;margin-top:8px}
+.fiche-hero .al{color:var(--muted);font-style:italic;font-family:var(--serif);font-size:18px;margin-top:6px}
+.fiche-hero .tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:14px}
+.fiche-hero .intro{font-family:var(--serif);font-size:clamp(18px,2vw,21px);line-height:1.55;max-width:68ch;margin:18px 0 0;color:var(--ink)}
+@media (max-width:560px){.fiche-hero{padding:20px 18px 18px}.fiche-hero .emb{--es:40px!important}}
+.toc{display:flex;gap:6px;flex-wrap:wrap;margin:18px 0 0}
+.toc button{font:inherit;font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;border:1px solid var(--rule);background:var(--card);color:var(--ink);cursor:pointer}
+.toc button:hover{border-color:var(--c,var(--accent));color:var(--c,var(--accent))}
+@media (max-width:760px){.toc{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;padding-bottom:4px}.toc button{flex:none;white-space:nowrap}}
+/* Fiche : article + colonne */
+.fiche2{display:grid;grid-template-columns:minmax(0,1fr) 340px;gap:40px;margin-top:28px;align-items:start}
+@media (max-width:1000px){.fiche2{grid-template-columns:minmax(0,1fr)}}
+.art{min-width:0}
+.art .block:first-child{margin-top:0}
+.art section.block{margin-top:40px;scroll-margin-top:120px}
+.art section.block>h2{display:flex;align-items:center;gap:10px;margin-bottom:14px;padding-bottom:10px;border-bottom:1px solid var(--rule)}
+.art section.block>h2::before{content:"";width:10px;height:10px;border-radius:2px;background:var(--c,var(--accent));flex:none;transform:rotate(45deg)}
+.prose-art{max-width:68ch}
+.prose-art p{font-family:var(--serif);font-size:19px;line-height:1.7;margin:0 0 1em;hyphens:auto;-webkit-hyphens:auto}
+.prose-art p:last-child{margin-bottom:0}
+@media (max-width:560px){.prose-art p{font-size:17.5px;line-height:1.65}}
+.purpose{font-family:var(--serif);font-size:18px;line-height:1.65;border-radius:var(--radius)}
+.symbols{font-family:var(--serif);font-size:18px;line-height:1.65;max-width:68ch;padding:16px 18px;background:var(--soft);border-radius:var(--radius);margin:0}
+.ctr-list{display:flex;flex-direction:column;gap:12px;max-width:72ch}
+.ctr-item{padding:14px 16px 14px 18px;background:var(--card);border:1px solid var(--rule);border-left:4px solid var(--k);border-radius:var(--radius)}
+.ctr-item .kl{font-family:var(--mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--k);font-weight:500}
+.ctr-item p{margin:6px 0 0;font-family:var(--serif);font-size:17.5px;line-height:1.6}
+.ctr-item.k-fait{--k:var(--cR)} .ctr-item.k-acc{--k:var(--v2)} .ctr-item.k-mythe{--k:var(--v1)}
+.ctr-key{display:flex;gap:14px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:12px}
+.ctr-key span::before{content:"";display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--k);margin-right:6px;vertical-align:-1px}
+.ctr-key .k-fait{--k:var(--cR)} .ctr-key .k-acc{--k:var(--v2)} .ctr-key .k-mythe{--k:var(--v1)}
+.reading{margin:0;padding-left:20px;max-width:70ch}
+.reading li{margin-bottom:6px;font-size:15px}
+.note-todo{font-size:14px;color:var(--muted);padding:12px 14px;border:1px dashed var(--rule);border-radius:var(--radius);max-width:68ch}
+/* Colonne latérale */
+.fiche2 .side{gap:22px;position:sticky;top:132px;max-height:calc(100vh - 148px);overflow:auto;padding-right:2px;scrollbar-width:thin}
+@media (max-width:1000px){.fiche2 .side{position:static;max-height:none;overflow:visible}}
+.side h3{font-size:17px}
+.side .sheet h3{padding:14px 16px 10px;margin:0;border-bottom:1px solid var(--rule)}
+.side .sheet dl{grid-template-columns:minmax(0,1fr)}
+.side .sheet dt{background:none;border-top:1px solid var(--rule);padding:10px 16px 0;font-size:11px}
+.side .sheet dt:first-of-type{border-top:none}
+.side .sheet dd{border-top:none;padding:3px 16px 11px;font-size:14px}
+blockquote.ex p{font-size:20px}
+.books{gap:14px}
+.book{padding:16px}
+.book b{font-size:18px}
+footer.site{padding-block:24px}
 </style>
 </head>
 <body>
@@ -206,6 +312,8 @@ footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--mute
 <script src="data.js"></script>
 <script src="extra.js"></script>
 <script src="extra2.js"></script>
+<script src="extra3.js"></script>
+<script src="articles/societes-1.js"></script>
 <script src="textes/judaisme.js"></script>
 <script src="textes/christianisme.js"></script>
 <script src="textes/islam.js"></script>
@@ -216,7 +324,7 @@ footer.site{border-top:1px solid var(--rule);padding-block:18px;color:var(--mute
 <script src="textes/initiatiques.js"></script>
 <script>
 (function(){
-const D = window.ORG_DATA || [], SRC = window.SOURCES || [], EX = window.ORG_EXTRA || {}, EMB = window.EMBLEMS || {};
+const D = window.ORG_DATA || [], SRC = window.SOURCES || [], EX = window.ORG_EXTRA || {}, EMB = window.EMBLEMS || {}, ART = window.ORG_ARTICLES || {};
 const SHAPES = {
  compass:'<path d="M24 5 11 40M24 5l13 35M15.5 29h17"/><circle cx="24" cy="6.5" r="2.2"/><path d="M6 31l18 13 18-13"/>',
  rosecross:'<path d="M24 4v40M10 17h28"/><circle cx="24" cy="17" r="6.5"/><circle cx="24" cy="17" r="2"/>',
@@ -319,6 +427,8 @@ function home(){
     <div class="eyebrow">Cartographie mondiale</div>
     <h1>Sociétés initiatiques, nouveaux mouvements religieux et religions du monde</h1>
     <p class="lede">Une fiche par organisation, courant ou branche : origine, rattachement, sous-branches, direction, influence, controverses, statut et sources. Les liens de filiation, de scission et d’influence se lisent dans chaque fiche. Un lien entre deux groupes ne signifie pas qu’ils obéissent à une même autorité.</p>
+    ${Object.keys(ART).filter(k=>by[k]).length?`<section class="featured"><div class="featured-head"><h2>Articles développés</h2><span class="eyebrow">${Object.keys(ART).filter(k=>by[k]).length} fiches complètes</span></div>
+      <div class="feat-grid">${Object.keys(ART).filter(k=>by[k]).map(k=>`<a class="feat cat-${by[k].c}" href="#f-${k}"><span class="ft">${emblem(by[k])}<b>${esc(by[k].n)}</b></span><p>${esc(ART[k].intro||"")}</p></a>`).join("")}</div></section>`:""}
     <div class="cats">${html}</div>
     <div class="notes">
       <div><h3>Niveau de vigilance</h3><p>Il résume des faits publics attribués, pas la valeur d’une croyance.</p>
@@ -425,35 +535,58 @@ function fiche(id){
   (o.r||[]).forEach(r=>{ (groups["a:"+r[0]] ||= []).push(r); });
   inv[id].forEach(r=>{ if(r[0]==="dis"||r[0]==="suc") return; (groups["b:"+r[0]] ||= []).push(r); });
   const relHtml = Object.keys(groups).length ? Object.entries(groups).map(([k,arr])=>{ const [dir,t]=k.split(":"); return `<div class="rel-group"><div class="lbl" style="color:${REL[t].c}">${esc(REL[t][dir])}</div><ul>${arr.map(r=>`<li>${link(r[1])}${r[2]?` <small>(${esc(r[2])})</small>`:""}</li>`).join("")}</ul></div>`; }).join("") : `<p class="na" style="color:var(--muted)">Aucune relation transversale renseignée en dehors de l’arborescence.</p>`;
+  const A = ART[id], E = EX[id] || {};
+  const introTxt = (A && A.intro) || E.pr || "";
+  const body = articleBlocks(o) + extraBlocks(o, true);
   view.innerHTML = `
     <div class="crumbs cat-${o.c}"><a href="#arbre">${esc(CAT[o.c].short)}</a>${ch.map(x=>` › <a href="#f-${x.i}">${esc(x.n)}</a>`).join("")}</div>
-    <div class="fiche-head cat-${o.c}"><span class="cote">${o._cote} · ${esc(o.t)}</span><div class="head-row">${emblem(o,52)}<h1>${esc(o.n)}</h1></div>${o.a?`<div class="al">${esc(o.a)}</div>`:""}
-      <div class="tags"><span class="pill st">${esc(o.s||"Statut inconnu")}</span>${lvPill(o.v)}${o.z?'<span class="pill pz">Persécuté ou interdit dans certains pays</span>':""}</div></div>
-    <div class="fiche">
-      <div class="sheet"><dl>
-        ${row("Nom", esc(o.n)+(o.a?`<br><small style="color:var(--muted)">Autres noms : ${esc(o.a)}</small>`:""))}
+    <header class="fiche-hero cat-${o.c}"><span class="cote">${o._cote} · ${esc(o.t)}</span><div class="head-row">${emblem(o,60)}<h1>${esc(o.n)}</h1></div>${o.a?`<div class="al">${esc(o.a)}</div>`:""}
+      <div class="tags"><span class="pill st">${esc(o.s||"Statut inconnu")}</span>${lvPill(o.v)}${o.z?'<span class="pill pz">Persécuté ou interdit dans certains pays</span>':""}${A?'<span class="pill" style="color:var(--c)">Article développé</span>':""}</div>
+      ${introTxt?`<p class="intro">${esc(introTxt)}</p>`:""}
+      <nav class="toc" aria-label="Sommaire de la fiche"></nav></header>
+    <div class="fiche2 cat-${o.c}">
+      <article class="art">${body}<section class="block cat-${o.c}"><h2>Carte des relations</h2><div class="graph">${ego(o)}</div>
+          <div class="legend"><span><i style="border-color:var(--rule)"></i>Arborescence</span>${Object.entries(REL).map(([k,r])=>`<span><i style="border-color:${r.c}"></i>${esc(r.a.split(" (")[0])}</span>`).join("")}</div></section></article>
+      <aside class="side">
+        <div class="sheet"><h3>Fiche signalétique</h3><dl>
         ${row("Origine", origin)}
         ${row("Famille", famTxt)}
-        ${row("Branche", parent)}
-        ${row("Sous-branches", subTxt)}
-        ${row("Direction", o.g?esc(o.g):"")}
-        ${row("Influence", o.f?esc(o.f):"")}
-        ${row("Controverses", contro)}
-        ${o.m?row("Mythes et théories", `<div class="myth">${esc(o.m)}</div>`):""}
+        ${parent?row("Branche", parent):""}
+        ${subTxt?row("Sous-branches", subTxt):""}
+        ${o.g?row("Direction", esc(o.g)):""}
+        ${o.f?row("Influence", esc(o.f)):""}
         ${row("Statut", esc(o.s||""))}
         ${row("Sources", srcTxt)}
-      </dl></div>
-      <div class="side">
-        <div><h3 style="margin-bottom:8px">Carte des relations</h3><div class="graph">${ego(o)}</div>
-          <div class="legend"><span><i style="border-color:var(--rule)"></i>Arborescence</span>${Object.entries(REL).map(([k,r])=>`<span><i style="border-color:${r.c}"></i>${esc(r.a.split(" (")[0])}</span>`).join("")}</div></div>
+        </dl></div>
         <div class="rels"><h3>Relations</h3>${relHtml}</div>
-      </div>
-    </div>${extraBlocks(o)}`;
+      </aside>
+    </div>`;
+  const toc = view.querySelector(".toc"), secs = [...view.querySelectorAll(".art section.block")];
+  if(secs.length>1) toc.innerHTML = secs.map((sc,i)=>{ sc.id="sec-"+i; return `<button type="button" data-s="${i}">${esc(sc.querySelector("h2").textContent)}</button>`; }).join("");
+  else toc.remove();
+  toc.querySelectorAll && toc.querySelectorAll("button").forEach(bt=>bt.onclick=()=>document.getElementById("sec-"+bt.dataset.s).scrollIntoView({behavior:matchMedia("(prefers-reduced-motion: reduce)").matches?"auto":"smooth",block:"start"}));
   window.scrollTo(0,0);
 }
-function extraBlocks(o){
+const KL = {fait:"Fait documenté",acc:"Accusation attribuée",mythe:"Mythe ou théorie sans preuve"};
+const paras = arr => `<div class="prose-art">${arr.map(p=>`<p>${esc(p)}</p>`).join("")}</div>`;
+function articleBlocks(o){
+  const A = ART[o.i], E = EX[o.i] || {}; let h = "";
+  if(A && A.intro && E.pr) h += `<section class="block cat-${o.c}"><h2>En bref</h2>${paras([E.pr])}</section>`;
+  if(A && A.but) h += `<section class="block cat-${o.c}"><h2>But et objectifs</h2>${paras(A.but)}</section>`;
+  else { const bo = nearest(o,"b"); if(bo) h += `<section class="block cat-${o.c}"><h2>But et objectifs</h2><p class="purpose">${esc(EX[bo.i].b)}${bo.i!==o.i?`<small>Résumé de la tradition de rattachement : ${link(bo.i)}.</small>`:""}</p></section>`; }
+  if(A && A.doc) h += `<section class="block cat-${o.c}"><h2>Doctrine et fonctionnement</h2>${paras(A.doc)}</section>`;
+  if(E.sy) h += `<section class="block cat-${o.c}"><h2>Rites et symboles</h2><p class="symbols">${esc(E.sy)}</p></section>`;
+  if(A && A.hist) h += `<section class="block cat-${o.c}"><h2>Histoire</h2>${paras(A.hist)}</section>`;
+  const items = A && A.contro ? A.contro : [].concat(o.x?[{k:"fait",t:o.x,raw:1}]:[], o.m?[{k:"mythe",t:o.m}]:[]);
+  if(items.length) h += `<section class="block cat-${o.c}"><h2>Controverses, accusations et mythes</h2>
+    <div class="ctr-key"><span class="k-fait">Fait documenté</span><span class="k-acc">Accusation attribuée à son auteur</span><span class="k-mythe">Mythe ou théorie sans preuve</span></div>
+    <div class="ctr-list">${items.map(it=>`<div class="ctr-item k-${it.k}"><span class="kl">${it.raw?"Controverses et faits publics":KL[it.k]}</span><p>${esc(it.t)}</p></div>`).join("")}</div></section>`;
+  if(!A && o.c==="S" && (o.v||0)<3) h += `<p class="note-todo">L’article développé de cette fiche (but, doctrine, histoire, controverses en plusieurs paragraphes) est en cours de rédaction. Les sections ci-dessous reprennent les compléments déjà disponibles.</p>`;
+  return h;
+}
+function extraBlocks(o, hasBut){
   const ex = EX[o.i] || {}; let h = "";
-  const bo = nearest(o,"b");
+  const bo = hasBut ? null : nearest(o,"b");
   if(bo) h += `<section class="block cat-${o.c}"><h2>But et doctrine</h2><p class="purpose">${esc(EX[bo.i].b)}${bo.i!==o.i?`<small>Résumé de la tradition de rattachement : ${link(bo.i)}. Les buts propres à cette fiche restent à documenter.</small>`:""}</p></section>`;
   const lo = nearest(o,"l");
   if(lo) h += `<section class="block"><h2>Textes de référence</h2>${lo.i!==o.i?`<p class="lede" style="margin:0 0 12px;font-size:14px">Textes de la tradition de rattachement, ${link(lo.i)}.</p>`:""}<div class="books">${EX[lo.i].l.map(b=>bookCard(b)).join("")}</div></section>`;
@@ -463,6 +596,8 @@ function extraBlocks(o){
   if(eo) h += `<section class="block"><h2>Extraits</h2>${EX[eo.i].e.map(e=>quote(e)).join("")}<p style="font-size:13px;color:var(--muted);margin:6px 0 0">Seuls des textes du domaine public sont cités ; les œuvres protégées sont présentées sans extrait.${eo.i!==o.i?` Extraits de la tradition ${link(eo.i)}.`:""}</p></section>`;
   if(ex.h && ex.h.length) h += `<section class="block cat-${o.c}"><h2>Chronologie détaillée</h2><ol class="tl">${ex.h.map(([d,t])=>`<li><span class="dt">${esc(d)}</span>${esc(t)}</li>`).join("")}</ol></section>`;
   if(ex.doc && ex.doc.length) h += `<section class="block"><h2>Documents</h2><ul class="docs">${ex.doc.map(d=>`<li>${d.u?`<a href="${esc(d.u)}" target="_blank" rel="noopener">${esc(d.t)}</a>`:`<a href="https://www.google.com/search?q=${encodeURIComponent(d.t)}" target="_blank" rel="noopener">${esc(d.t)}</a>`}${d.desc?` <span style="color:var(--muted)">: ${esc(d.desc)}</span>`:""}</li>`).join("")}</ul></section>`;
+  const A = ART[o.i];
+  if(A && A.lire && A.lire.length) h += `<section class="block cat-${o.c}"><h2>Pour aller plus loin</h2><ul class="reading">${A.lire.map(r=>`<li>${esc(r)}</li>`).join("")}</ul></section>`;
   return h;
 }
 /* ---------- Bibliothèque ---------- */
