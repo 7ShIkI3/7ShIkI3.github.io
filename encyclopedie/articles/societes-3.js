@@ -3,7 +3,7 @@
 window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
 
 "godf":{
- intro:"Le Grand Orient de France (GODF) est la plus ancienne et la plus importante obédience maçonnique française. Fondé en 1773, il compte environ 50 000 membres. Il incarne la franc-maçonnerie dite « libérale » ou « adogmatique » : depuis 1877, il n’exige plus de ses membres la croyance en Dieu et se consacre volontiers aux questions de société.",
+ intro:"Le Grand Orient de France (GODF) est la plus ancienne et la plus importante obédience maçonnique française. Fondé en 1773, il déclare plus de 52 472 membres et 1 393 loges (54 448 membres selon le recensement Hiram.be de 2026). Il incarne la franc-maçonnerie dite « libérale » ou « adogmatique » : depuis 1877, il n’exige plus de ses membres la croyance en Dieu et se consacre volontiers aux questions de société.",
  but:[
   "Le GODF affiche la devise républicaine « Liberté, Égalité, Fraternité » et se donne pour but « la recherche de la vérité, l’étude de la morale et la pratique de la solidarité ». Il veut contribuer à l’amélioration matérielle et morale de l’humanité.",
   "Plus que d’autres obédiences, il assume un rôle dans le débat public. Il défend la laïcité, la liberté de conscience, l’école publique et les droits sociaux, et ses responsables prennent position sur des sujets comme la fin de vie, la bioéthique ou les droits des femmes. Il précise toutefois ne soutenir aucun parti."
@@ -26,14 +26,14 @@ window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
 },
 
 "gldf":{
- intro:"La Grande Loge de France (GLDF) est une obédience maçonnique masculine fondée en 1894. C’est la deuxième obédience française par le nombre de membres, avec environ 30 000 à 35 000 frères. Elle travaille principalement au Rite écossais ancien et accepté et se situe entre la maçonnerie « régulière » anglo-saxonne et la maçonnerie « libérale ».",
+ intro:"La Grande Loge de France (GLDF) est une obédience maçonnique masculine fondée en 1894. Elle déclare 31 000 membres et 921 loges dans son dossier de presse d’avril 2026 (30 446 membres selon le recensement Hiram.be de 2026). Le Rite écossais ancien et accepté est le seul rite qu’elle pratique. Elle se situe entre la maçonnerie « régulière » anglo-saxonne et la maçonnerie « libérale ».",
  but:[
   "La GLDF se présente comme une obédience « traditionnelle » centrée sur le travail initiatique et spirituel. Son but est le perfectionnement de l’homme par la méthode symbolique, dans le respect de la liberté de conscience de chacun.",
   "Contrairement au Grand Orient, elle ne prend pas position collectivement sur les questions politiques ou sociales. Ses loges peuvent débattre de tout, mais l’obédience se veut d’abord un lieu de travail sur soi."
  ],
  doc:[
   "Les loges de la GLDF travaillent « à la gloire du Grand Architecte de l’Univers » et en présence d’un Volume de la Loi sacrée sur l’autel, mais l’obédience laisse chaque membre libre de l’interpréter, de façon religieuse ou philosophique. C’est cette liberté d’interprétation qui l’empêche d’être reconnue par la Grande Loge unie d’Angleterre.",
-  "Le rite principal est le Rite écossais ancien et accepté, dont les trois premiers degrés sont pratiqués en loge. Les hauts grades de ce rite, du 4e au 33e degré, sont gérés par une juridiction distincte, le Suprême Conseil de France, avec lequel la GLDF entretient des liens historiques."
+  "Le Rite écossais ancien et accepté, en 33 degrés, est le seul rite pratiqué à la GLDF selon son dossier de presse de 2026 ; ses trois premiers degrés sont pratiqués en loge. Les hauts grades de ce rite, du 4e au 33e degré, sont gérés par une juridiction distincte, le Suprême Conseil de France, avec lequel la GLDF entretient des liens historiques."
  ],
  hist:[
   "La GLDF naît en 1894 lorsque des loges dépendant du Suprême Conseil de France, juridiction du Rite écossais, deviennent une obédience autonome pour les trois premiers grades. Elle se développe sous la IIIe République et, comme les autres obédiences, est interdite et persécutée sous le régime de Vichy.",
