@@ -7,6 +7,7 @@ Site statique (HTML, CSS et JavaScript, sans build) qui cartographie les sociét
 - `index.html` : interface (accueil, index filtrable, arborescence, fiches, bibliothèque, chronologie, méthode)
 - `data.js` : les fiches (`window.ORG_DATA`) et les sources générales
 - `extra.js`, `extra2.js` : buts, textes de référence, extraits du domaine public, chronologies et documents (`window.ORG_EXTRA`)
+- `guide.js` : guide pratique et compléments vérifiés (`window.GUIDE`, vue `#guide`) : corrections, franc-maçonnerie (fonctionnement, adhésion, coûts, Savoie, Suisse, comparatif des obédiences), Église, autres religions, organisations initiatiques, dérives sectaires. Chaque information garde son étiquette ([Vérifié], [Variable selon sources], [Incertain], [À approfondir]) et sa source ; les fiches concernées y renvoient.
 
 ## Ajouter une fiche
 

@@ -25,7 +25,7 @@ window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
 },
 
 "glnf":{
- intro:"La Grande Loge nationale française (GLNF) est la principale obédience française reconnue par la Grande Loge unie d’Angleterre. Fondée en 1913, elle est masculine, exige la croyance en Dieu et interdit les débats politiques et religieux en loge. Elle compte environ 25 000 à 30 000 membres.",
+ intro:"La Grande Loge nationale française (GLNF) est la principale obédience française reconnue par la Grande Loge unie d’Angleterre. Fondée en 1913, elle est masculine, exige la croyance en Dieu et interdit les débats politiques et religieux en loge. Ses effectifs varient selon les sources : 29 000 membres selon Wikipédia, 33 889 selon le recensement Hiram.be de 2026 ; l’obédience ne publie pas de chiffre.",
  but:[
   "La GLNF défend une franc-maçonnerie dite « régulière » et spiritualiste. Son but est le perfectionnement moral et spirituel de ses membres, dans le respect d’un Dieu révélé, appelé le Grand Architecte de l’Univers, et des textes sacrés.",
   "Elle se distingue des obédiences libérales par son refus de toute prise de position publique : elle se veut un lieu de travail spirituel et de fraternité, à l’écart des débats politiques."
@@ -36,10 +36,10 @@ window.ORG_ARTICLES = Object.assign(window.ORG_ARTICLES || {}, {
  ],
  hist:[
   "En 1913, Édouard de Ribaucourt et la loge « Le Centre des Amis » quittent le Grand Orient de France, jugé trop politique, et fondent la Grande Loge nationale indépendante et régulière, aussitôt reconnue par Londres. Elle prend le nom de GLNF en 1948 et accueille en 1964 des membres venus de la Grande Loge de France.",
-  "De 2009 à 2012, une grave crise interne éclate autour de la gestion du Grand Maître François Stifani : procès, administrateur judiciaire et départ de milliers de membres. La Grande Loge unie d’Angleterre suspend sa reconnaissance en 2012, puis la rétablit en 2014 après l’élection d’une nouvelle direction."
+  "De 2009 à 2012, une grave crise interne éclate autour de la gestion du Grand Maître François Stifani : procès, administrateur judiciaire et départ de milliers de membres. La Grande Loge unie d’Angleterre suspend ses relations en 2011, les rompt le 12 septembre 2012, puis rétablit sa reconnaissance en juin 2014, avec les Grandes Loges d’Irlande et d’Écosse, après l’élection d’une nouvelle direction."
  ],
  contro:[
-  {k:"fait",t:"La crise de 2009-2012 a été documentée par des décisions de justice qui ont désigné un administrateur provisoire et annulé certaines décisions de la direction. Elle a conduit à la création de nouvelles obédiences par d’anciens membres."},
+  {k:"fait",t:"La crise de 2009-2012 a été documentée par des décisions de justice qui ont désigné un administrateur provisoire et annulé certaines décisions de la direction. Elle a conduit à la création de nouvelles obédiences par d’anciens membres, dont la Grande Loge de l’Alliance maçonnique française (GL-AMF), fondée à Tours en 2012."},
   {k:"acc",t:"Des enquêtes journalistiques ont mis en cause, dans les années 1990 et 2000, des réseaux d’affaires et d’influence impliquant des membres de la GLNF, notamment sur la Côte d’Azur et dans les relations avec des dirigeants africains membres de l’obédience. La GLNF affirme sanctionner les membres qui utilisent l’appartenance maçonnique à des fins personnelles."},
   {k:"mythe",t:"La GLNF n’est pas la « branche française » d’une maçonnerie mondiale dirigée depuis Londres : la reconnaissance anglaise est un accord de régularité, pas un lien hiérarchique."}
  ],

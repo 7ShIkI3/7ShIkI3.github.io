@@ -288,6 +288,26 @@ blockquote.ex p{font-size:20px}
 .book{padding:16px}
 .book b{font-size:18px}
 footer.site{padding-block:24px}
+/* Guide pratique (compléments du 16 nov. 2026) */
+.lab-tag{display:inline-block;font-family:var(--body);font-size:11.5px;font-weight:600;line-height:1.4;padding:1px 7px;border-radius:999px;border:1px solid currentColor;white-space:nowrap;vertical-align:1px}
+.lab-ok{color:var(--cR)} .lab-var{color:var(--v1)} .lab-inc{color:var(--v2)} .lab-todo{color:var(--accent)}
+.guide-head{max-width:76ch}
+.guide-toc{display:flex;flex-wrap:wrap;gap:6px;margin:20px 0 4px;padding:0;list-style:none}
+.guide-toc a{display:inline-block;font-size:13px;font-weight:600;text-decoration:none;color:var(--ink);background:var(--card);border:1px solid var(--rule);border-radius:999px;padding:5px 12px}
+.guide-toc a:hover{border-color:var(--accent)}
+.guide section.block{margin-top:44px;scroll-margin-top:120px;max-width:980px}
+.guide section.block>h2{padding-bottom:8px;border-bottom:1px solid var(--rule)}
+.guide h3{margin:26px 0 8px;font-size:19px}
+.guide p,.guide li{max-width:76ch;font-size:15.5px}
+.guide p{margin:10px 0}
+.guide .tbl-wrap{background:var(--card);border:1px solid var(--rule);border-radius:var(--radius);margin:14px 0}
+.guide table{font-size:14px;min-width:560px}
+.guide td{line-height:1.5}
+.guide td:first-child{font-weight:600}
+.guide tr:last-child td{border-bottom:none}
+.guide-src{font-size:13px;color:var(--muted);margin-top:40px}
+.guide-links li{margin:4px 0}
+@media (max-width:560px){.guide section.block{scroll-margin-top:170px}.guide table{font-size:13px}.guide p,.guide li{font-size:15px}}
 </style>
 </head>
 <body>
@@ -301,6 +321,7 @@ footer.site{padding-block:24px}
       <a href="#arbre" data-v="arbre">Arborescence</a>
       <a href="#bibliotheque" data-v="bibliotheque">Bibliothèque</a>
       <a href="#chronologie" data-v="chronologie">Chronologie</a>
+      <a href="#guide" data-v="guide">Guide pratique</a>
       <a href="#methode" data-v="methode">Méthode et sources</a>
     </nav>
     <div class="search"><input id="q" type="search" placeholder="Rechercher un nom, un fondateur, un pays…" aria-label="Rechercher"></div>
@@ -330,6 +351,7 @@ footer.site{padding-block:24px}
 <script src="articles/mouvements-5.js"></script>
 <script src="articles/mouvements-6.js"></script>
 <script src="articles/mouvements-7.js"></script>
+<script src="guide.js"></script>
 <script src="textes/judaisme.js"></script>
 <script src="textes/christianisme.js"></script>
 <script src="textes/islam.js"></script>
@@ -443,6 +465,7 @@ function home(){
     <div class="eyebrow">Cartographie mondiale</div>
     <h1>Sociétés initiatiques, nouveaux mouvements religieux et religions du monde</h1>
     <p class="lede">Une fiche par organisation, courant ou branche : origine, rattachement, sous-branches, direction, influence, controverses, statut et sources. Les liens de filiation, de scission et d’influence se lisent dans chaque fiche. Un lien entre deux groupes ne signifie pas qu’ils obéissent à une même autorité.</p>
+    ${G?`<p class="lede" style="font-size:15px"><a href="#guide"><strong>Guide pratique</strong></a>, mis à jour le ${esc(G.maj)} : fonctionnement et adhésion en franc-maçonnerie (coûts, Savoie, Suisse, comparatif des obédiences), entrée dans l’Église et dans les autres religions, critères officiels des dérives sectaires. Chaque information porte son degré de certitude et sa source.</p>`:""}
     ${Object.keys(ART).filter(k=>by[k]).length?`<section class="featured"><div class="featured-head"><h2>Articles développés</h2><span class="eyebrow">${Object.keys(ART).filter(k=>by[k]).length} fiches complètes</span></div>
       <div class="feat-grid">${Object.keys(ART).filter(k=>by[k]).map(k=>`<a class="feat cat-${by[k].c}" href="#f-${k}"><span class="ft">${emblem(by[k])}<b>${esc(by[k].n)}</b></span><p>${esc(ART[k].intro||"")}</p></a>`).join("")}</div></section>`:""}
     <div class="cats">${html}</div>
@@ -561,7 +584,7 @@ function fiche(id){
       ${introTxt?`<p class="intro">${esc(introTxt)}</p>`:""}
       <nav class="toc" aria-label="Sommaire de la fiche"></nav></header>
     <div class="fiche2 cat-${o.c}">
-      <article class="art">${body}<section class="block cat-${o.c}"><h2>Carte des relations</h2><div class="graph">${ego(o)}</div>
+      <article class="art">${body}${guideBlock(o)}<section class="block cat-${o.c}"><h2>Carte des relations</h2><div class="graph">${ego(o)}</div>
           <div class="legend"><span><i style="border-color:var(--rule)"></i>Arborescence</span>${Object.entries(REL).map(([k,r])=>`<span><i style="border-color:${r.c}"></i>${esc(r.a.split(" (")[0])}</span>`).join("")}</div></section></article>
       <aside class="side">
         <div class="sheet"><h3>Fiche signalétique</h3><dl>
@@ -671,6 +694,55 @@ function ego(o){
   return svg+"</svg>";
 }
 
+/* ---------- Guide pratique ---------- */
+const G = window.GUIDE || null;
+const LABS = {"Vérifié":"ok","Variable selon sources":"var","Incertain":"inc","À approfondir":"todo"};
+function gInline(t){
+  let h = esc(t);
+  h = h.replace(/\[(Vérifié|Variable selon sources|Incertain|À approfondir)\]/g,(m,l)=>`<span class="lab-tag lab-${LABS[l]}">${l}</span>`);
+  h = h.replace(/\[([^\]]+)\]\((https?:\/\/[^)\s]+)\)/g,(m,a,u)=>`<a href="${u}" target="_blank" rel="noopener">${a}</a>`);
+  h = h.replace(/\*\*(.+?)\*\*/g,"<strong>$1</strong>");
+  return h;
+}
+function gBlock(b){
+  if(b.p!=null) return `<p>${gInline(b.p)}</p>`;
+  if(b.h3!=null) return `<h3>${gInline(b.h3)}</h3>`;
+  if(b.ul) return `<ul>${b.ul.map(x=>`<li>${gInline(x)}</li>`).join("")}</ul>`;
+  if(b.ol) return `<ol>${b.ol.map(x=>`<li>${gInline(x)}</li>`).join("")}</ol>`;
+  if(b.table){ const [hd,...rows]=b.table; return `<div class="tbl-wrap"><table><thead><tr>${hd.map(c=>`<th>${gInline(c)}</th>`).join("")}</tr></thead><tbody>${rows.map(r=>`<tr>${r.map(c=>`<td>${gInline(c)}</td>`).join("")}</tr>`).join("")}</tbody></table></div>`; }
+  return "";
+}
+/* fiches → sections du guide */
+const GL = {};
+[["corrections",["fm","glnf","godf","gldf","eglise-catholique","catholicisme","alpina"]],
+ ["fm-fonctionnement",["fm","fm-reg","fm-lib","godf","gldf","alpina","reaa","rite-francais","rer"]],
+ ["fm-adhesion",["fm","fm-reg","fm-lib","godf","gldf","glnf","glff","droit-humain","glmf","gltso","gl-amf","alpina"]],
+ ["fm-savoie-suisse",["fm","godf","gldf","glff","droit-humain","alpina"]],
+ ["fm-obediences",["fm","fm-reg","fm-lib","godf","gldf","glnf","glff","droit-humain","glmf","gltso","gl-amf","alpina","ugle"]],
+ ["eglise",["christianisme","catholicisme","eglise-catholique"]],
+ ["religions",["christianisme","protestantisme","reformes","orthodoxie","islam","judaisme","orthodoxe-juif","reforme-juif","bouddhisme","ubf","hindouisme","arya-samaj","iskcon"]],
+ ["initiatiques",["amorc","rosecroix","martinisme","ordre-martiniste","compagnonnage"]],
+ ["sectes",["amorc"]]
+].forEach(([sec,ids])=>ids.forEach(i=>(GL[i] ||= []).push(sec)));
+function guideBlock(o){
+  if(!G || !GL[o.i]) return "";
+  const secs = GL[o.i].map(id=>G.sections.find(s=>s.id===id)).filter(Boolean);
+  return `<section class="block cat-${o.c}"><h2>Compléments vérifiés (${esc(G.maj)})</h2><p class="lede" style="margin:0 0 10px;font-size:15px">Le guide pratique reprend, avec leurs sources et leur degré de certitude, les informations récentes utiles pour cette fiche.</p><ul class="docs guide-links">${secs.map(s=>`<li><a href="#guide-${s.id}">${esc(s.h.replace(/^\d+\.\s*/,""))}</a></li>`).join("")}</ul></section>`;
+}
+function guide(sec){
+  setNav("guide");
+  if(!G){ view.innerHTML = `<p class="empty">Le guide n’a pas pu être chargé.</p>`; return; }
+  view.innerHTML = `<div class="guide">
+    <div class="guide-head"><div class="eyebrow">Mis à jour le ${esc(G.maj)}</div><h1>${esc(G.titre)}</h1>
+    ${G.intro.map(b=>gBlock(b).replace("<p>",'<p class="lede">')).join("")}
+    <p style="font-size:14px;color:var(--muted)">Les renvois au « cours » et à ses modules désignent le document de cours dont ces compléments sont issus. Les fiches concernées renvoient à ces sections.</p></div>
+    <ul class="guide-toc">${G.sections.map(s=>`<li><a href="#guide-${s.id}">${esc(s.h)}</a></li>`).join("")}</ul>
+    ${G.sections.map(s=>`<section class="block" id="g-${s.id}"><h2>${esc(s.h)}</h2>${s.b.map(gBlock).join("")}</section>`).join("")}
+  </div>`;
+  const el = sec && document.getElementById("g-"+sec);
+  if(el) el.scrollIntoView({block:"start"}); else window.scrollTo(0,0);
+}
+
 /* ---------- Méthode ---------- */
 function methode(){
   setNav("methode");
@@ -697,7 +769,7 @@ function methode(){
     <p>Le niveau résume des faits publics, du plus faible au plus grave. Il ne mesure ni la vérité ni la valeur d’une croyance, et il ne se substitue pas à l’avis des autorités compétentes. Une organisation persécutée par un État est signalée à part : une interdiction peut viser une minorité pacifique.</p>
     <div class="scale">${LV.map((l,i)=>`<div>${lvPill(i)} ${esc(l)}</div>`).join("")}</div>
     <h2>À propos du mot « secte »</h2>
-    <p>Le mot est souvent employé comme une insulte. En sociologie des religions, une branche dissidente ou une religion nouvelle n’est pas en soi dangereuse. En France, la Miviludes parle de « dérives sectaires » et retient des critères liés à l’emprise mentale et aux atteintes aux personnes, non aux croyances.</p>
+    <p>Le mot est souvent employé comme une insulte. En sociologie des religions, une branche dissidente ou une religion nouvelle n’est pas en soi dangereuse. En France, la Miviludes parle de « dérives sectaires » et retient des critères liés à l’emprise mentale et aux atteintes aux personnes, non aux croyances. Depuis la loi n° 2024-420 du 10 mai 2024, la mise en état de sujétion psychologique ou physique est un délit spécifique. Les dix critères de 1995, la loi de 2024 et les chiffres de la Miviludes sont détaillés dans le <a href="#guide-sectes">guide pratique</a>.</p>
     <h2>Sources de départ</h2>
     <ul>${SRC.map(s=>`<li><a href="${esc(s.u)}" target="_blank" rel="noopener">${esc(s.t)}</a></li>`).join("")}</ul>
     <p>Autres références : Cambridge Elements, « Abuse in New Religious Movements » ; University of Chicago, « Secrecy, Silence, Power, and Religion » ; Antoine Faivre, « L’Ésotérisme » ; Nicholas Goodrick-Clarke, « Les Racines occultistes du nazisme ».</p>
@@ -717,6 +789,8 @@ function route(){
   else if(h==="methode") methode();
   else if(h==="bibliotheque") biblio();
   else if(h==="chronologie") chrono();
+  else if(h==="guide") guide();
+  else if(h.startsWith("guide-")) guide(h.slice(6));
   else home();
 }
 let t; qEl.addEventListener("input",()=>{ clearTimeout(t); t=setTimeout(()=>{ if(location.hash!=="#index"){ location.hash="index"; } else list(); },120); });
